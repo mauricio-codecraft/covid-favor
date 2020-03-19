@@ -1,0 +1,58 @@
+<app-header progressRate=0.2></app-header>
+<ion-content  class="ios hydrated" style="--offset-top:0px; --offset-bottom:0px;">
+  <ion-grid  class="ios hydrated">
+    <ion-row  class="ios hydrated">
+      <!---->
+      <ion-col  size="10" class="ng-star-inserted ios hydrated"
+        style="flex: 0 0 calc(calc(10 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(10 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(10 / var(--ion-grid-columns, 12)) * 100%);">
+        <h4 >Quem é você?</h4>
+        <p >Para começar precisamos saber um pouco mais sobre você. Essas informações serão usadas para te colocar em contato com outras pessoas!</p>
+      </ion-col>
+      <!---->
+    </ion-row>
+    <ion-row  class="form-container ios hydrated">
+      <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()" style="width: 100%;padding:0 10px;">
+        <ion-col size="12">
+          <!--
+          <div class="material-input"><input 
+              class="form-control ng-untouched ng-pristine ng-invalid" name="password" required="" type="password">
+            <div class="material-input__placeholder"><span >Password</span>
+            </div>
+          </div>
+          -->
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>Password</mat-label>
+            <input formControlName="password" matInput placeholder="" type="password">
+          </mat-form-field>
+          <!---->
+        </ion-col>
+        <!---->
+        <ion-col size="12">
+          <!--
+          <div class="material-input"><input 
+              class="form-control ng-untouched ng-pristine ng-invalid" name="confirmPassword" required=""
+              type="password">
+            <div  class="material-input__placeholder"><span >Confirm
+                Password</span></div>
+          </div>
+          -->
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>Confirm Password</mat-label>
+            <input formControlName="confirmPassword" matInput placeholder="" type="password">
+          </mat-form-field>
+        </ion-col>
+      </form>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer  role="contentinfo" class="ios footer-ios hydrated">
+  <ion-toolbar  class="in-toolbar ios hydrated">
+    <ion-grid  class="ios hydrated">
+      <ion-row  class="ion-justify-content-center no-padd ios hydrated">
+        <ion-col size="11">     
+          <ion-button (click)="onSubmit()" color="primary" expand="block" shape="round" [disabled]="!passwordForm.valid">CONTINUE</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

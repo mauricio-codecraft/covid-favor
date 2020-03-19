@@ -1,0 +1,73 @@
+<app-header progressRate=0.9></app-header>
+<ion-content class="ion-padding " style="--offset-top:0px; --offset-bottom:0px;">
+  <ion-grid>
+    <p class="page__title">SIM delivery</p>
+    <h4 class="page__description">You can have your new SIM delivered or pick it up from a store
+      near you.</h4>
+    <div class="page__label"> Delivery Option </div>
+    <ion-row class="ion-no-padding ">
+      <ion-col (click)="selfPickup = true" class="radio-container " size="6" tappable="">
+        <img *ngIf="selfPickup" src="../../assets/radio-selected.svg">
+        <img *ngIf="!selfPickup" src="../../assets/radio.svg">
+        <p>Self Pickup</p>
+      </ion-col>
+      <ion-col (click)="selectDeliveryInQatar()" class="radio-container " size="6" tappable="">
+        <img *ngIf="!selfPickup" src="../../assets/radio-selected.svg">
+        <img *ngIf="selfPickup" src="../../assets/radio.svg">
+        <p>Delivery in Qatar</p>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="selfPickup">
+      <!---->
+      <ion-col #option1Container id="Airport Road Branch" (click)="selectSelfPickupOption(option1Container)" class="delivery-cart " size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>Airport Road Branch</b><small>Ready for
+            Pickup in 2 hours</small></div>
+      </ion-col>
+      <ion-col #option2Container id="Hamad International Airport - Arrival Terminal" (click)="selectSelfPickupOption(option2Container)" class="delivery-cart " size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>Hamad International Airport - Arrival Terminal </b><small>Ready for Pickup in 2 hours</small></div>
+      </ion-col>
+      <ion-col #option3Container id="Al Sadd" (click)="selectSelfPickupOption(option3Container)" class="delivery-cart " size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>Al Sadd</b><small>Ready for Pickup in 2
+            hours</small></div>
+      </ion-col>
+      <ion-col #option4Container id="City Center" (click)="selectSelfPickupOption(option4Container)" class="delivery-cart " size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>City Center</b><small>Ready for Pickup
+            in 2 hours</small></div>
+      </ion-col>
+      <ion-col #option5Container id="Landmark" (click)="selectSelfPickupOption(option5Container)" class="delivery-cart " size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>Landmark</b><small>Ready for Pickup in
+            2 hours</small></div>
+      </ion-col>
+      <ion-col #option6Container id="Salwa Road" (click)="selectSelfPickupOption(option6Container)" class="delivery-cart " size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>Salwa Road</b><small>Ready for Pickup
+            in 2 hours</small></div>
+      </ion-col>
+      <ion-col #option7Container id="Villaggio Mall" (click)="selectSelfPickupOption(option7Container)" class="delivery-cart " size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>Villaggio Mall</b><small>Ready for
+            Pickup in 2 hours</small></div>
+      </ion-col>
+    </ion-row>
+    <form [formGroup]="deliveryInQatarForm" (ngSubmit)="onSubmit()" class="ng-pristine ng-invalid ng-touched">
+      <ion-row *ngIf="!selfPickup">
+        <ion-col class="pick-location-container ion-text-center " size="12">
+          <img src="../../assets/google-map.png"><b>Pin my location in Map</b>
+        </ion-col>
+        <p class="or-address">Or enter your address</p>
+        <ion-col size="12">
+          <input class="form-control" (keyup)="enableContinueButton()" formControlName="fullAddress" type="text" placeholder="Full Address"></ion-col>
+        <ion-col size="12">
+          <input class="form-control" (keyup)="enableContinueButton()" formControlName="city" type="text" placeholder="City"></ion-col>
+        <ion-col size="12">
+          <input class="form-control" (keyup)="enableContinueButton()" formControlName="deliveryInstructions" type="text" placeholder="Delivery Instructions"></ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>
+<app-cart #footer></app-cart>

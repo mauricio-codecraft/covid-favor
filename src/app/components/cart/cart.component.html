@@ -1,0 +1,20 @@
+<ion-footer role="contentinfo" class="ios footer-">
+  <ion-toolbar class="in-toolbar ">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <img alt="" src="../../assets/cart-icon.png"></ion-col>
+        <ion-col class=""><b>Visitor Sim</b>
+          <p>Total: USD {{selectedSim.cost}} ({{selectedSim.code}}) </p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center no-padd ">
+        <ion-col size="11">
+          <ion-button #continueButton (click)="proceedToNextStep()"
+            class="continue-btn ion-color ion-color-primary ios button button-block button-round button-solid ion-activatable ion-focusable hydrated button-disabled"
+            color="primary" expand="block" shape="round" disabled="true">CONTINUE</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

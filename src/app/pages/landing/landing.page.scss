@@ -1,0 +1,72 @@
+.landing-container{
+    background-color:var(--ion-color-primary);
+    color:#fff;
+    display:-webkit-box;
+    display:flex
+}
+.landing-container .logo-img{
+    width:200px!important
+}
+.landing-container .ion-padding{
+    padding-bottom:0
+}
+.landing-container .ion-switcher{
+    position:absolute;
+    padding:10px;
+    width:100%;
+    z-index:1
+}
+.landing-container .btn-ctrl-container{
+    padding:20px;
+    background:#fff;
+    margin-top:20px;
+    border-top-right-radius:15px;
+    border-top-left-radius:15px;
+    color:#000
+}
+.landing-container .btn-ctrl-container hr{
+    border-top:1px solid #eee;
+    height:1px;
+    margin:20px 0
+}
+.landing-container .btn-ctrl-container ion-button{
+    width:230px
+}
+.landing-container .btn-ctrl-container__title{
+    font-size:14px;
+    font-weight:var(--font-weight-light,300);
+    color:#221e20;
+    margin-top:0
+}
+.landing-container .btn-ctrl-container__buy-button{
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:13px
+}
+.landing-container__title{
+    font-size:22px;
+    font-weight:700;
+    margin:10px 0
+}
+.landing-container__description{
+    font-size:15px;
+    font-weight:var(--font-weight-light,300);
+    display:block;
+    width:90%;
+    margin:0 auto 40px
+}
+.landing-container .login-btn{
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:13px
+}
+.landing-container .links{
+    font-size:12px;
+    margin-top:15px
+}
+.landing-container .links a{
+    color:#039eff;
+    text-decoration:none;
+    font-weight:var(--font-weight-light,300)
+}
+ 

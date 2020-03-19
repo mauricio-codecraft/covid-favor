@@ -1,0 +1,85 @@
+<app-header progressRate=0.2></app-header>
+<ion-content class="ion-padding ios hydrated" style="--offset-top:0px; --offset-bottom:0px;">
+  <ion-grid class="ios hydrated">
+    <p class="page__title">Queremos te conhecer!</p>
+    <h5 class="page__description">Conte um pouco mais sobre você. Essas informações serão usadas
+      para te colocar em contato com as pessoas mais próximas!</h5>
+
+    <ion-row class="form-container ios hydrated">
+      <form [formGroup]="userInfoForm" (ngSubmit)="onSubmit()" novalidate="">
+        <ion-col class="ion-no-padding ios hydrated" size="12">
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>Nome</mat-label>
+            <input tabindex="1" formControlName="firstName" matInput placeholder="" type="text">
+          </mat-form-field>
+          <!--
+          <div class="material-input"><input class="form-control ng-untouched ng-pristine ng-invalid" name="firstName"
+              required="">
+            <div class="material-input__placeholder"><span>First Name</span>
+            </div>
+          </div>
+          -->
+        </ion-col>
+        <ion-col class="ion-no-padding ios hydrated" size="12">
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>Sobrenome</mat-label>
+            <input tabindex="2" formControlName="lastName" matInput placeholder="" type="text">
+          </mat-form-field>
+          <!--
+          <div class="material-input"><input class="form-control ng-untouched ng-pristine ng-invalid" name="lastName"
+              required="" type="text">
+            <div class="material-input__placeholder"><span>Last Name</span>
+            </div>
+          </div>
+          -->
+        </ion-col>
+        <ion-col size="12">
+          <ion-item style="padding-bottom:21px; margin-top:4px; margin-bottom:4px">
+            <ion-label>Estado</ion-label>
+            <ion-select tabindex="5" formControlName="state" class="form-contrl" name="state" required=""
+              role="combobox" aria-haspopup="dialog" aria-expanded="false" aria-labelledby="ion-sel-0-lbl">
+              <ion-select-option role="option" *ngFor="let state of states">{{state}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item style="padding-bottom:21px; margin-top:4px; margin-bottom:4px">
+            <ion-label>Data de Nascimento</ion-label>
+            <ion-datetime tabindex="4" max="2019" formControlName="dateOfBirth" displayFormat="DD MMM YYYY" value=""
+              monthShortNames="jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12">
+          <ion-item style="padding-bottom:21px; margin-top:4px; margin-bottom:4px">
+            <ion-label>Cidade</ion-label>
+            <ion-select tabindex="5" formControlName="city" class="form-contrl" name="city" required=""
+              role="combobox" aria-haspopup="dialog" aria-expanded="false" aria-labelledby="ion-sel-0-lbl">
+              <ion-select-option role="option" *ngFor="let city of citiesFromState">{{city.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col class="ion-no-padding ios hydrated" size="8">
+          <mat-form-field appearance="outline" color="warn">
+            <mat-label>Numero Celular (Com DDD)</mat-label>
+            <input tabindex="7" formControlName="phoneNumber" matInput placeholder="41991111111" type="text"
+              maxlength="11">
+          </mat-form-field>
+        </ion-col>
+      </form>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer role="contentinfo" class="ios footer-ios hydrated">
+  <ion-toolbar class="in-toolbar ios hydrated">
+    <ion-grid class="ios hydrated">
+      <ion-row class="ion-justify-content-center no-padd ios hydrated">
+        <ion-col size="11">
+          <!---->
+          <!---->
+          <ion-button (click)="onSubmit()" color="primary" expand="block" shape="round"
+            [disabled]="!userInfoForm.valid">Enviar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

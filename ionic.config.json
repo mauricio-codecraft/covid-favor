@@ -1,0 +1,7 @@
+{
+  "name": "ooredoo-poc-4",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,60 @@
+.login-button {
+  margin: 2px 0;
+  --padding-start: 11px;
+  --padding-end: 11px;
+}
+
+.login-notification {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  position: absolute;
+  background: #fff;
+  z-index: 99;
+  width: 100%;
+  bottom: 0;
+  height: 400px;
+  left: 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.login-notification .filter {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.login-notification .filter ion-icon {
+  margin: 0 5px;
+}
+
+.or-google {
+  color: #8b959a;
+  font-size: 14px;
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.google-login-container {
+  border: 1px solid #e3e7eb;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  color: #898989;
+  font-size: 18px;
+  padding: 12px 20px 12px 12px;
+}
+
+.google-login-container img {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+}
+
+ion-backdrop {
+  opacity: 0.5;
+  z-index: 99;
+}
