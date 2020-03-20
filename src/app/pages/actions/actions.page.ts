@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
 import { Events } from '@ionic/angular';
 
 @Component({
-  selector: 'app-role',
-  templateUrl: './role.page.html',
-  styleUrls: ['./role.page.scss'],
+  selector: 'app-actions',
+  templateUrl: './actions.page.html',
+  styleUrls: ['./actions.page.scss'],
 })
-export class RolePage implements OnInit {
+export class ActionsPage implements OnInit {
 
   constructor(private renderer: Renderer2, private events: Events) { }
 
@@ -15,6 +15,9 @@ export class RolePage implements OnInit {
 
   @ViewChild('secondPackContainer', {static: false})
   secondPackContainer: any;
+
+  @ViewChild('thirdPackContainer', {static: false})
+  thirdPackContainer: any;
 
   @ViewChild('footer', {static: false})
   footer: any;
@@ -33,27 +36,35 @@ export class RolePage implements OnInit {
     this.events.publish('loading:start');
   }
 
-  selectSim(selectedPack: any) {
-    this.highlightSim(selectedPack)
-    if (selectedPack === this.firstPackContainer) {
-      console.log('ajudar')
+  selectSim(selectedAction: any) {
+    this.highlightAction(selectedAction)
+    let nextRoute: string;
+    if (selectedAction === this.firstPackContainer) {
+      nextRoute = 'offer'
     } 
-    if (selectedPack === this.secondPackContainer) {
-      console.log('ser ajudado')
+    if (selectedAction === this.secondPackContainer) {
+      nextRoute = 'request'
     }
-    // console.log('this.selectedSim = ', this.selectedSim)
-    // localStorage.setItem('selectedSim', JSON.stringify(this.selectedSim));
+    if (selectedAction === this.thirdPackContainer) {
+      nextRoute = 'dashboard'
+    }
+    console.log('nextRoute = ', nextRoute)
+    localStorage.setItem('nextRoute', nextRoute);
     this.enableContinue()
   }
 
-  highlightSim(selectedPack: any) {
+  highlightAction(selectedPack: any) {
     this.firstPackContainer.el.classList.remove('active')
     this.secondPackContainer.el.classList.remove('active')
+    this.thirdPackContainer.el.classList.remove('active')
     selectedPack.el.classList.add('active')
   }
 
+  goToList() {
+    console.log('goToList')
+  }
+
   enableContinue() {
-    // console.log('localStorage = ', localStorage.getItem('selectedSim'))
     this.footer.continueButton.disabled = false
   }
 }

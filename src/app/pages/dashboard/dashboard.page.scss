@@ -8,6 +8,9 @@
   -webkit-box-align: center;
   align-items: center;
 }
+.contact {
+  display: block !important;
+}
 .delivery-cart img {
   margin: 0 15px;
   width: 36px;
@@ -21,6 +24,10 @@
 .delivery-cart small {
   font-size: 12px;
   color: #898989;
+}
+.delivery-cart div {
+  width: 80%; 
+  word-wrap: break-word;
 }
 .delivery-cart.active {
   border-color: var(--ion-color-primary) !important;

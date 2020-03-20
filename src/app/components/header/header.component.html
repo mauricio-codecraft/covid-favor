@@ -1,19 +1,15 @@
 <ion-header role="banner" class="ios header-ios header-collapse-none hydrated">
   <ion-toolbar class="in-toolbar ios hydrated">
-    <ion-buttons slot="start"
-      class="buttons-first-slot sc-ion-buttons-ios-h sc-ion-buttons-ios-s ios hydrated">
-      <ion-back-button defaulthref="/landing"
-        class="sc-ion-back-button-ios-h sc-ion-back-button-ios-s ios button back-button-has-icon-only ion-activatable ion-focusable show-back-button hydrated">
-        <button type="button" class="button-native sc-ion-back-button-ios"><span
-            class="button-inner sc-ion-back-button-ios">
-            <ion-icon class="sc-ion-back-button-ios ios hydrated" role="img" aria-label="arrow back"></ion-icon>
-          </span></button></ion-back-button>
+    <ion-buttons slot="start" class="buttons-first-slot sc-ion-buttons-ios-h sc-ion-buttons-ios-s ios hydrated">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="dashboard" style="color:#ed1c24"></ion-back-button>
+      </ion-buttons>
     </ion-buttons>
     <ion-buttons slot="end" class="sc-ion-buttons-ios-h sc-ion-buttons-ios-s ios hydrated">
-      <ion-button class="help-button ios button button-clear ion-activatable ion-focusable hydrated"
-        routerlink="/help" tabindex="0"><img src="../../assets/icon-LiveChatHelp.png"></ion-button>
+      <ion-button class="help-button ios button button-clear ion-activatable ion-focusable hydrated" routerlink="/help"
+        tabindex="0"><img src="../../assets/icon-LiveChatHelp.png"></ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-progress-bar [value]="progressRate" role="progressbar" aria-valuenow="0.2" aria-valuemin="0"
-    aria-valuemax="1" class="ios progress-bar-determinate hydrated"></ion-progress-bar>
+  <ion-progress-bar [value]="progressRate" role="progressbar" aria-valuenow="0.2" aria-valuemin="0" aria-valuemax="1"
+    class="ios progress-bar-determinate hydrated"></ion-progress-bar>
 </ion-header>

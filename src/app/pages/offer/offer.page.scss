@@ -1,0 +1,85 @@
+html.plt-mobile ion-app{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+}
+ion-app.force-statusbar-padding{
+    --ion-safe-area-top:20px
+}
+ 
+/** Sim details */
+.sim-details-container .pack-container{
+    border:2px solid #eee;
+    border-radius:6px;
+    overflow:hidden;
+    margin-top:15px;
+    padding:15px;
+    position:relative
+}
+.sim-details-container .pack-container header{
+    color:#fff;
+    display:-webkit-box;
+    display:flex;
+    -webkit-box-pack:justify;
+    justify-content:space-between
+}
+.sim-details-container .pack-container aside .price{
+    background:var(--ion-color-primary);
+    color:#fff;
+    padding:10px;
+    border-radius:5px
+}
+.sim-details-container .pack-container aside .price b{
+    font-size:13px
+}
+.sim-details-container .pack-container aside .price + small{
+    font-size:10px;
+    color:#707070;
+    font-weight:700
+}
+.sim-details-container .pack-container aside b{
+    display:block
+}
+.sim-details-container .pack-container aside hr{
+    border-top:1px solid #eee;
+    margin:7px 10px
+}
+.sim-details-container .pack-container aside .more-info-container{
+    background:#eee;
+    margin-top:5px;
+    color:#898989;
+    font-size:13px
+}
+.sim-details-container .pack-container aside .more-info-container b{
+    margin-top:0
+}
+.sim-details-container .pack-container .offer-data small{
+    color:#898989;
+    font-size:13px;
+    text-transform:uppercase
+}
+.sim-details-container .pack-container .offer-data small:nth-child(2):not(:last-child){
+    margin-bottom:20px;
+    display:block
+}
+.sim-details-container .pack-container.active{
+    border-color:var(--ion-color-primary)!important;
+    overflow:unset
+}
+.sim-details-container .pack-container.active .active-check-icon{
+    display:-webkit-box;
+    display:flex
+}
+.sim-details-container .sim-details-fotter{
+    background:#eee;
+    text-align:center;
+    margin-top:20px;
+    padding:15px
+}
+.sim-details-container .sim-details-fotter small{
+    display:block
+}
+.footer-ios ion-toolbar:first-child{
+    --border-width:0 0 0
+}

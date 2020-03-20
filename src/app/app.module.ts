@@ -15,14 +15,15 @@ import { AppRoutingModule } from './app-routing.module';
 // pages
 import { LandingPage } from './pages/landing/landing.page';
 import { ConfirmationPage } from './pages/confirmation/confirmation.page';
-import { RolePage } from './pages/role/role.page';
+import { ActionsPage } from './pages/actions/actions.page';
 import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
-import { DeliveryOptionPage } from './pages/delivery-option/delivery-option.page';
+import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { UserInfoPage } from './pages/user-info/user-info.page';
 import { PaymentPage } from './pages/payment/payment.page';
 import { CongratulationsPage } from './pages/congratulations/congratulations.page';
-import { SdkPage} from './pages/sdk/sdk.page'
+import { OfferPage } from './pages/offer/offer.page';
+import { RequestPage } from './pages/request/request.page';
 // components
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -40,14 +41,15 @@ import { environment } from '../environments/environment';
     AppComponent,
     LandingPage,
     ConfirmationPage,
-    RolePage,
+    ActionsPage,
     LoginPage,
     RegisterPage,
-    DeliveryOptionPage,
+    DashboardPage,
     UserInfoPage,
     PaymentPage,
     CongratulationsPage,
-    SdkPage,
+    OfferPage,
+    RequestPage,
     HeaderComponent,
     FooterComponent,
     CartComponent,

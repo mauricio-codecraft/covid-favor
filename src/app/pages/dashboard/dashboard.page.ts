@@ -1,17 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Events } from '@ionic/angular';
-import { OnfidoAngularService } from 'src/app/service/onfido.angular.service';
 
 @Component({
-  selector: 'app-delivery-option',
-  templateUrl: './delivery-option.page.html',
-  styleUrls: ['./delivery-option.page.scss'],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.page.html',
+  styleUrls: ['./dashboard.page.scss'],
 })
-export class DeliveryOptionPage implements OnInit {
-  constructor(private events: Events, private onfidoAngularService: OnfidoAngularService) { 
-    var sandboxMode: boolean = (/true/i).test(localStorage.getItem('sandboxMode'))
-    onfidoAngularService.setSandboxMode(sandboxMode)
+export class DashboardPage implements OnInit {
+  constructor(private events: Events) { 
+    
   }
 
   selfPickup: boolean
@@ -40,6 +38,18 @@ export class DeliveryOptionPage implements OnInit {
   @ViewChild('option7Container', { static: false })
   option7Container: any;
 
+  @ViewChild('option1xContainer', { static: false })
+  option1xContainer: any;
+
+  @ViewChild('option2xContainer', { static: false })
+  option2xContainer: any;
+
+  @ViewChild('option3xContainer', { static: false })
+  option3xContainer: any;
+
+  @ViewChild('option4xContainer', { static: false })
+  option4xContainer: any;
+
   @ViewChild('footer', { static: false })
   footer: any;
 
@@ -65,7 +75,11 @@ export class DeliveryOptionPage implements OnInit {
   }
 
   highlightSelfPickupOption(selectedPack: any) {
-    this.option1Container.el.classList.remove('active')
+    this.option1xContainer.el.classList.remove('active')
+    this.option2xContainer.el.classList.remove('active')
+    this.option3xContainer.el.classList.remove('active')
+    this.option4xContainer.el.classList.remove('active')
+
     this.option2Container.el.classList.remove('active')
     this.option3Container.el.classList.remove('active')
     this.option4Container.el.classList.remove('active')

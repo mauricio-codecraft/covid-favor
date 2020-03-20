@@ -33,7 +33,7 @@ export class UserInfoPage implements OnInit {
       lastName: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      dateOfBirth: new FormControl('', Validators.compose([
+      neighborhood: new FormControl('', Validators.compose([
         Validators.required
       ])),
       phoneNumber: new FormControl('', Validators.compose([
@@ -62,7 +62,8 @@ export class UserInfoPage implements OnInit {
     if (this.userInfoForm.valid) {
       localStorage.setItem('firstName', this.userInfoForm.value.firstName);
       localStorage.setItem('lastName', this.userInfoForm.value.lastName);
-      localStorage.setItem('dateOfBirth', this.userInfoForm.value.dateOfBirth);
+      localStorage.setItem('neighborhood', this.userInfoForm.value.neighborhood);
+      console.log('neighborhood = ', this.userInfoForm.value.neighborhood);
       localStorage.setItem('phoneNumber', this.userInfoForm.value.phoneNumber);
       let selectedCity = this.userInfoForm.value.city;
       cities.forEach(city => {
@@ -70,7 +71,7 @@ export class UserInfoPage implements OnInit {
           localStorage.setItem('city', JSON.stringify(city));
         }
       });
-      this.router.navigate(['/role']);
+      this.router.navigate(['/confirmation']);
     }
   }
 }

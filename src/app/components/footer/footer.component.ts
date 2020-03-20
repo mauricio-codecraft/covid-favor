@@ -15,9 +15,10 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() { }
 
-  proceedLogin() {
+  onContinue() {
+    let nextRoute: string = localStorage.getItem('nextRoute');
     if (this.continueButton.disabled === false) {
-      this.router.navigate(['/login'])
+      this.router.navigate(['/' + nextRoute]);
     }
   }
 }

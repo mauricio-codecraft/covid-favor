@@ -34,7 +34,7 @@ export class ConfirmationPage implements OnInit {
     if (this.confirmationForm.valid) {
       localStorage.setItem('confirmationCode', this.confirmationForm.value.confirmationCode);
       console.log('this.confirmationForm.value.confirmationCode = ', this.confirmationForm.value.confirmationCode);
-      this.router.navigate(['/confirmation'])
+      this.router.navigate(['/actions'])
     }
   }
 }

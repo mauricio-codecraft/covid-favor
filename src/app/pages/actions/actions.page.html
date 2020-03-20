@@ -1,10 +1,37 @@
-  <app-header progressRate=0.6></app-header>
+  <app-header progressRate=1.0></app-header>
   <ion-content class="ion-padding ios hydrated" style="--offset-top:0px; --offset-bottom:0px;">
     <ion-grid class="sim-details-container ios hydrated">
       <p class="page__title">Olá, {{firstName}}</p>
-      <h5 class="page__description">qual será a sua ação de hoje?</h5>
+      <h5 class="page__description">Qual será a sua ação de hoje?</h5>
       <ion-row class="ion-justify-content-center ios hydrated">
         <!---->
+        <ion-col #thirdPackContainer class="pack-container no-padd ios hydrated" size="12"
+          style="flex: 0 0 calc(calc(12 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(12 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(12 / var(--ion-grid-columns, 12)) * 100%);">
+          <span class="active-check-icon">
+            <ion-icon name="checkmark" role="img" class="ios hydrated" aria-label="checkmark">
+            </ion-icon>
+          </span>
+          <aside >
+            <ion-row class="ios hydrated">
+              <ion-col class="offer-data ios hydrated" size="8"
+                style="flex: 0 0 calc(calc(8 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(8 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(8 / var(--ion-grid-columns, 12)) * 100%);">
+                <b >Ver Solicitações</b><small ></small>
+                <!---->
+                <!---->
+              </ion-col>
+              <ion-col class="ion-text-center ios hydrated" size="4"
+                style="flex: 0 0 calc(calc(4 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(4 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(4 / var(--ion-grid-columns, 12)) * 100%);">
+                <div (click)="selectSim(thirdPackContainer)" class="price"><b >Ver</b></div><small
+                  ></small>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-justify-content-center ios hydrated">
+              <ion-col class="more-info-container ion-text-center ios hydrated" size="12"
+                style="flex: 0 0 calc(calc(12 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(12 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(12 / var(--ion-grid-columns, 12)) * 100%);">
+                <b class="small-line-height">Aqui você pode visualizar as suas ofertas/pedidos de ajuda bem como a de demais usuários próximos de sua região. Assim, você pode atender a solicitação de alguém ou encontrar alguém que tenha se colocado a disposição para ajudar</b></ion-col>
+            </ion-row>
+          </aside>
+        </ion-col>
         <ion-col #firstPackContainer class="pack-container no-padd ios hydrated" size="12"
           style="flex: 0 0 calc(calc(12 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(12 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(12 / var(--ion-grid-columns, 12)) * 100%);">
           <span class="active-check-icon">

@@ -1,29 +1,44 @@
-<app-header progressRate=0.9></app-header>
+<app-header progressRate=1.0></app-header>
 <ion-content class="ion-padding " style="--offset-top:0px; --offset-bottom:0px;">
   <ion-grid>
-    <p class="page__title">SIM delivery</p>
-    <h4 class="page__description">You can have your new SIM delivered or pick it up from a store
-      near you.</h4>
-    <div class="page__label"> Delivery Option </div>
+    <p class="page__title">Mural</p>
+    <h4 class="page__description">Você pode escolher visualizar os pedidos de ajuda ou os favores que as pessoas estão dispostas a realizar. Você pode escoher um pedido para atender, é simples e rápido.</h4>
+    <div class="page__label"></div>
     <ion-row class="ion-no-padding ">
       <ion-col (click)="selfPickup = true" class="radio-container " size="6" tappable="">
         <img *ngIf="selfPickup" src="../../assets/radio-selected.svg">
         <img *ngIf="!selfPickup" src="../../assets/radio.svg">
-        <p>Self Pickup</p>
+        <p>Ofertas de Ajuda</p>
       </ion-col>
       <ion-col (click)="selectDeliveryInQatar()" class="radio-container " size="6" tappable="">
         <img *ngIf="!selfPickup" src="../../assets/radio-selected.svg">
         <img *ngIf="selfPickup" src="../../assets/radio.svg">
-        <p>Delivery in Qatar</p>
+        <p>Pedidos de Ajuda</p>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="selfPickup">
       <!---->
-      <ion-col #option1Container id="Airport Road Branch" (click)="selectSelfPickupOption(option1Container)" class="delivery-cart " size="12">
+      <h4 class="page__description">Suas ofertas</h4>
+      <ion-col #option1xContainer (click)="selectSelfPickupOption(option1xContainer)" class="delivery-cart " size="12">
         <img src="../../assets/store-img.svg">
-        <div><b>Airport Road Branch</b><small>Ready for
-            Pickup in 2 hours</small></div>
+        <div><b>Mauricio Lopes Bonetti - Curitiba-PR - Vila Izabel</b>
+          <small>Eu posso entregar alimentos e remédios para quem precisar proximo a meu bairro. XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD</small>
+          <b>Contato: 41991696644</b>
+        </div>
       </ion-col>
+      <ion-col #option2xContainer (click)="selectSelfPickupOption(option2xContainer)" class="delivery-cart " size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>Mauricio Lopes Bonetti - Curitiba-PR - Vila Izabel</b><small>Eu posso entregar alimentos e remédios para quem precisar proximo a meu bairro.</small></div>
+      </ion-col>
+      <ion-col #option3xContainer (click)="selectSelfPickupOption(option3xContainer)" class="delivery-cart " size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>Mauricio Lopes Bonetti - Curitiba-PR - Vila Izabel</b><small>Eu posso entregar alimentos e remédios para quem precisar proximo a meu bairro.</small></div>
+      </ion-col>
+      <ion-col #option4xContainer (click)="selectSelfPickupOption(option4xContainer)" class="delivery-cart " size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>Mauricio Lopes Bonetti - Curitiba-PR - Vila Izabel</b><small>Eu posso entregar alimentos e remédios para quem precisar proximo a meu bairro.</small></div>
+      </ion-col>
+      <h4 class="page__description">Ofertas de outras pessoas</h4>
       <ion-col #option2Container id="Hamad International Airport - Arrival Terminal" (click)="selectSelfPickupOption(option2Container)" class="delivery-cart " size="12">
         <img src="../../assets/store-img.svg">
         <div><b>Hamad International Airport - Arrival Terminal </b><small>Ready for Pickup in 2 hours</small></div>
@@ -70,4 +85,4 @@
     </form>
   </ion-grid>
 </ion-content>
-<app-cart #footer></app-cart>
+<!--<app-cart #footer></app-cart>-->
