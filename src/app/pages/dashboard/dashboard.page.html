@@ -1,6 +1,6 @@
 <app-header progressRate=1.0></app-header>
 <ion-content class="ion-padding " style="--offset-top:0px; --offset-bottom:0px;">
-  <ion-grid>
+  <ion-grid id="grid">
     <p class="page__title">Mural</p>
     <h4 class="page__description">Você pode escolher visualizar os pedidos de ajuda ou os favores que as pessoas estão dispostas a realizar. Você pode escoher um pedido para atender, é simples e rápido.</h4>
     <div class="page__label"></div>
@@ -17,58 +17,31 @@
       </ion-col>
     </ion-row>
     <ion-row *ngIf="selfPickup">
-      <!---->
-      <h4 class="page__description">Suas ofertas</h4>
-      <ion-col #option1xContainer (click)="selectSelfPickupOption(option1xContainer)" class="delivery-cart " size="12">
+      <!-- Minhas Ofertas -->
+      <h4 class="page__description">Minhas Ofertas</h4>
+      <ion-col *ngFor="let offer of myOffers" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
         <img src="../../assets/store-img.svg">
-        <div><b>Mauricio Lopes Bonetti - Curitiba-PR - Vila Izabel</b>
-          <small>Eu posso entregar alimentos e remédios para quem precisar proximo a meu bairro. XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD</small>
-          <b>Contato: 41991696644</b>
+        <div><b>{{offer.user}} - {{offer.city}} - {{offer.neighbourhood}}</b>
+          <small>{{offer.description}}</small>
+          <b>Contato: {{offer.phoneNumber}}</b>
         </div>
-      </ion-col>
-      <ion-col #option2xContainer (click)="selectSelfPickupOption(option2xContainer)" class="delivery-cart " size="12">
-        <img src="../../assets/store-img.svg">
-        <div><b>Mauricio Lopes Bonetti - Curitiba-PR - Vila Izabel</b><small>Eu posso entregar alimentos e remédios para quem precisar proximo a meu bairro.</small></div>
-      </ion-col>
-      <ion-col #option3xContainer (click)="selectSelfPickupOption(option3xContainer)" class="delivery-cart " size="12">
-        <img src="../../assets/store-img.svg">
-        <div><b>Mauricio Lopes Bonetti - Curitiba-PR - Vila Izabel</b><small>Eu posso entregar alimentos e remédios para quem precisar proximo a meu bairro.</small></div>
-      </ion-col>
-      <ion-col #option4xContainer (click)="selectSelfPickupOption(option4xContainer)" class="delivery-cart " size="12">
-        <img src="../../assets/store-img.svg">
-        <div><b>Mauricio Lopes Bonetti - Curitiba-PR - Vila Izabel</b><small>Eu posso entregar alimentos e remédios para quem precisar proximo a meu bairro.</small></div>
-      </ion-col>
-      <h4 class="page__description">Ofertas de outras pessoas</h4>
-      <ion-col #option2Container id="Hamad International Airport - Arrival Terminal" (click)="selectSelfPickupOption(option2Container)" class="delivery-cart " size="12">
-        <img src="../../assets/store-img.svg">
-        <div><b>Hamad International Airport - Arrival Terminal </b><small>Ready for Pickup in 2 hours</small></div>
-      </ion-col>
-      <ion-col #option3Container id="Al Sadd" (click)="selectSelfPickupOption(option3Container)" class="delivery-cart " size="12">
-        <img src="../../assets/store-img.svg">
-        <div><b>Al Sadd</b><small>Ready for Pickup in 2
-            hours</small></div>
-      </ion-col>
-      <ion-col #option4Container id="City Center" (click)="selectSelfPickupOption(option4Container)" class="delivery-cart " size="12">
-        <img src="../../assets/store-img.svg">
-        <div><b>City Center</b><small>Ready for Pickup
-            in 2 hours</small></div>
-      </ion-col>
-      <ion-col #option5Container id="Landmark" (click)="selectSelfPickupOption(option5Container)" class="delivery-cart " size="12">
-        <img src="../../assets/store-img.svg">
-        <div><b>Landmark</b><small>Ready for Pickup in
-            2 hours</small></div>
-      </ion-col>
-      <ion-col #option6Container id="Salwa Road" (click)="selectSelfPickupOption(option6Container)" class="delivery-cart " size="12">
-        <img src="../../assets/store-img.svg">
-        <div><b>Salwa Road</b><small>Ready for Pickup
-            in 2 hours</small></div>
-      </ion-col>
-      <ion-col #option7Container id="Villaggio Mall" (click)="selectSelfPickupOption(option7Container)" class="delivery-cart " size="12">
-        <img src="../../assets/store-img.svg">
-        <div><b>Villaggio Mall</b><small>Ready for
-            Pickup in 2 hours</small></div>
+        <input type="hidden" class="offerId" name="offerId" [value]="offer.id"/>
+        <input type="hidden" class="isOwner" name="isOwner" [value]="offer.isOwner"/>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="selfPickup">
+      <!-- Outras Ofertas -->
+      <h4 class="page__description">Outras Ofertas</h4>
+      <ion-col *ngFor="let offer of otherOffers" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>{{offer.user}} - {{offer.city}} - {{offer.neighbourhood}}</b>
+          <small>{{offer.description}}</small>
+          <b>Contato: {{offer.phoneNumber}}</b>
+        </div>
+        <input type="hidden" class="offerId" name="offerId" [value]="offer.id"/>
+        <input type="hidden" class="isOwner" name="isOwner" [value]="offer.isOwner"/>
+      </ion-col>
+    </ion-row>   
     <form [formGroup]="deliveryInQatarForm" (ngSubmit)="onSubmit()" class="ng-pristine ng-invalid ng-touched">
       <ion-row *ngIf="!selfPickup">
         <ion-col class="pick-location-container ion-text-center " size="12">
@@ -84,5 +57,9 @@
       </ion-row>
     </form>
   </ion-grid>
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll">
+    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
 <!--<app-cart #footer></app-cart>-->

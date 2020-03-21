@@ -8,50 +8,26 @@ import { Events } from '@ionic/angular';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
-  constructor(private events: Events) { 
-    
+  constructor(private events: Events) {
   }
+
+  myOffers: any[] = [{ id: '1010', user: 'Mauricio Lopes Bonetti', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'Desc1', phoneNumber: '41991696644', isOwner: true },
+  { id: '1011', user: 'Mauricio Lopes Bonetti1', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true }
+  ]
+
+  otherOffers: any[] = [{ id: '1012', user: 'João', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'Desc1', phoneNumber: '41991696644', isOwner: true },
+  { id: '1013', user: 'João', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true }
+  ]
 
   selfPickup: boolean
   deliveryInQatar: boolean
 
   deliveryInQatarForm: FormGroup;
 
-  @ViewChild('option1Container', { static: false })
-  option1Container: any;
-
-  @ViewChild('option2Container', { static: false })
-  option2Container: any;
-
-  @ViewChild('option3Container', { static: false })
-  option3Container: any;
-
-  @ViewChild('option4Container', { static: false })
-  option4Container: any;
-
-  @ViewChild('option5Container', { static: false })
-  option5Container: any;
-
-  @ViewChild('option6Container', { static: false })
-  option6Container: any;
-
-  @ViewChild('option7Container', { static: false })
-  option7Container: any;
-
-  @ViewChild('option1xContainer', { static: false })
-  option1xContainer: any;
-
-  @ViewChild('option2xContainer', { static: false })
-  option2xContainer: any;
-
-  @ViewChild('option3xContainer', { static: false })
-  option3xContainer: any;
-
-  @ViewChild('option4xContainer', { static: false })
-  option4xContainer: any;
-
   @ViewChild('footer', { static: false })
   footer: any;
+
+  infiniteScroll: any;
 
   ngOnInit() {
     this.selfPickup = true
@@ -64,6 +40,51 @@ export class DashboardPage implements OnInit {
       ])),
       deliveryInstructions: new FormControl('')
     });
+    let grid = document.getElementById('grid');
+    grid.addEventListener("scroll", () => {
+      console.log('scroll event')
+    });
+    this.infiniteScroll = document.getElementById('infinite-scroll');
+    this.infiniteScroll.addEventListener('ionInfinite', async function () {
+      console.log('ionInfinite event!!!')
+      /*
+      if (length < users.length) {
+        console.log('Loading data...');
+        await wait(500);
+        infiniteScroll.complete();
+        appendItems(10);
+        console.log('Done');
+      } else {
+        console.log('No More Data');
+        infiniteScroll.disabled = true;
+      }
+      */
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
+
+      await this.wait(500);
+      if (this.otherOffers.length > 50) {
+        this.infiniteScroll.disabled = true;
+      }
+      this.infiniteScroll.complete();
+      console.log('complete')
+    }.bind(this));
+  }
+
+  // TODO: remove!
+  wait(time) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, time);
+    });
   }
 
   ionViewDidEnter() {
@@ -74,36 +95,27 @@ export class DashboardPage implements OnInit {
     this.events.publish('loading:start');
   }
 
-  highlightSelfPickupOption(selectedPack: any) {
-    this.option1xContainer.el.classList.remove('active')
-    this.option2xContainer.el.classList.remove('active')
-    this.option3xContainer.el.classList.remove('active')
-    this.option4xContainer.el.classList.remove('active')
+  selectItem(event) {
+    // Disable all and activate one    
+    let selectedOffer = event.currentTarget;
+    console.log('selectedOffer = ', selectedOffer);
+    let allOffers = document.querySelectorAll('.delivery-cart');
+    allOffers.forEach(offer => {
+      offer.classList.remove('active');
+    });
+    selectedOffer.classList.add('active');
 
-    this.option2Container.el.classList.remove('active')
-    this.option3Container.el.classList.remove('active')
-    this.option4Container.el.classList.remove('active')
-    this.option5Container.el.classList.remove('active')
-    this.option6Container.el.classList.remove('active')
-    this.option7Container.el.classList.remove('active')
-
-    if (selectedPack) {
-      selectedPack.el.classList.add('active')
-    }
-  }
-
-  selectSelfPickupOption(selectedPack: any) {
-    this.highlightSelfPickupOption(selectedPack)
-    localStorage.setItem('selfPickup', selectedPack.el.id)
-    console.log('selectedPack = ', selectedPack)
-    console.log('selfPickup = ', selectedPack.el.id)
-
-    this.footer.continueButton.disabled = false
+    // Select the specific offer
+    let offerIdElement = selectedOffer.querySelector('.offerId');
+    let offerId = offerIdElement.value;
+    console.log('offerId = ', offerId);
+    let isOwnerElement = selectedOffer.querySelector('.isOwner');
+    let isOwner = isOwnerElement.value;
+    console.log('isOwner = ', isOwner);
   }
 
   selectDeliveryInQatar() {
     this.selfPickup = false
-    this.highlightSelfPickupOption(null)
     this.footer.continueButton.disabled = true
   }
 
