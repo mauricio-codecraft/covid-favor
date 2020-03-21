@@ -15,14 +15,19 @@ export class DashboardPage implements OnInit {
   { id: '1011', user: 'Mauricio Lopes Bonetti1', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true }
   ]
 
-  otherOffers: any[] = [{ id: '1012', user: 'João', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'Desc1', phoneNumber: '41991696644', isOwner: true },
-  { id: '1013', user: 'João', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true }
+  otherOffers: any[] = [{ id: '1012', user: 'João', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'Desc1', phoneNumber: '41991696644', isOwner: false },
+  { id: '1013', user: 'João', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false }
   ]
 
-  selfPickup: boolean
-  deliveryInQatar: boolean
+  myRequests: any[] = [{ id: '1010', user: 'Mauricio Lopes Bonetti', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'Ajuda1', phoneNumber: '41991696644', isOwner: true, status: 'assigned' },
+  { id: '1011', user: 'Mauricio Lopes Bonetti1', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true, status: 'unassigned' }
+  ]
 
-  deliveryInQatarForm: FormGroup;
+  otherRequests: any[] = [{ id: '1012', user: 'João', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'ajuda2', phoneNumber: '41991696644', isOwner: false, status: 'assigned'  },
+  { id: '1013', user: 'João', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false, status: 'unassigned' }
+  ]
+
+  showOffers: boolean
 
   @ViewChild('footer', { static: false })
   footer: any;
@@ -30,16 +35,7 @@ export class DashboardPage implements OnInit {
   infiniteScroll: any;
 
   ngOnInit() {
-    this.selfPickup = true
-    this.deliveryInQatarForm = new FormGroup({
-      fullAddress: new FormControl('', Validators.compose([
-        Validators.required
-      ])),
-      city: new FormControl('', Validators.compose([
-        Validators.required
-      ])),
-      deliveryInstructions: new FormControl('')
-    });
+    this.showOffers = true
     let grid = document.getElementById('grid');
     grid.addEventListener("scroll", () => {
       console.log('scroll event')
@@ -59,15 +55,15 @@ export class DashboardPage implements OnInit {
         infiniteScroll.disabled = true;
       }
       */
-      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
-      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
-      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
-      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
-      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
-      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
-      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
-      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
-      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
+      this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
 
       await this.wait(500);
       if (this.otherOffers.length > 50) {
@@ -88,6 +84,8 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.hideButtons();
+    this.footer.showNewActionButton = true;
     this.events.publish('loading:stop');
   }
 
@@ -96,37 +94,64 @@ export class DashboardPage implements OnInit {
   }
 
   selectItem(event) {
+    this.hideButtons()
     // Disable all and activate one    
-    let selectedOffer = event.currentTarget;
-    console.log('selectedOffer = ', selectedOffer);
-    let allOffers = document.querySelectorAll('.delivery-cart');
-    allOffers.forEach(offer => {
-      offer.classList.remove('active');
+    let selectedItem = event.currentTarget;
+    console.log('selectedItem = ', selectedItem);
+    let allItems = document.querySelectorAll('.delivery-cart');
+    allItems.forEach(item => {
+      item.classList.remove('active');
     });
-    selectedOffer.classList.add('active');
+    selectedItem.classList.add('active');
 
-    // Select the specific offer
-    let offerIdElement = selectedOffer.querySelector('.offerId');
-    let offerId = offerIdElement.value;
-    console.log('offerId = ', offerId);
-    let isOwnerElement = selectedOffer.querySelector('.isOwner');
+    // Select the specific item
+    let itemIdElement = selectedItem.querySelector('.itemId');
+    let itemId = itemIdElement.value;
+    console.log('itemId = ', itemId);
+    let isOwnerElement = selectedItem.querySelector('.isOwner');
     let isOwner = isOwnerElement.value;
     console.log('isOwner = ', isOwner);
+    let itemTypeElement = selectedItem.querySelector('.itemType');
+    let itemType = itemTypeElement.value;
+    console.log('itemType = ', itemType);
+
+    if (isOwner == 'true') {
+      this.footer.showDeleteButton = true;
+    } else {
+      this.footer.showDeleteButton = false;
+      if (itemType == 'request') {
+        let itemStatusElement = selectedItem.querySelector('.itemStatus');
+        let itemStatus = itemStatusElement.value;
+        console.log('itemStatus = ', itemStatus);
+        if (itemStatus == 'unassigned') {
+          this.footer.showAcceptButton = true;
+        }
+      }
+    }
   }
 
-  selectDeliveryInQatar() {
-    this.selfPickup = false
-    this.footer.continueButton.disabled = true
+  hideButtons() {
+    this.footer.showDeleteButton = false;
+    this.footer.showAcceptButton = false;
+  }
+
+  switchType() {
+    console.log('switchType')
+    this.hideButtons()
+    this.showOffers = !this.showOffers;
   }
 
   enableContinueButton() {
+    /*
     console.log('deliveryInQatarForm = ', this.deliveryInQatarForm)
     if (this.deliveryInQatarForm.valid) {
       this.footer.continueButton.disabled = false
     }
+    */
   }
 
   onSubmit() {
+    /*
     if (this.deliveryInQatarForm.valid) {
       this.footer.continueButton.disabled = false
       localStorage.setItem('fullAddress', this.deliveryInQatarForm.value.fullAddress)
@@ -134,5 +159,6 @@ export class DashboardPage implements OnInit {
       localStorage.setItem('deliveryInstructions', this.deliveryInQatarForm.value.deliveryInstructions)
       this.footer.continueButton.disabled = false
     }
+    */
   }
 }

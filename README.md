@@ -1,13 +1,8 @@
-# Onfido POC
+# 1SimplesFavor
 
-Ionic 4 application using the onfido mobile API. This version has two features (two buttons).
-1) Call a public API (using HTTP GET) - No CORS error since it is a GET
-2) Call Onfido API (using HTTP POST) - CORS error!
+1SimplesFavor is an application to support people
 
 ## Disclaimer
-
-This code is meant to be an example only.
-Don't use it straight away in production without reviewing it and without careful consideration.
 
 ## Requirements
 

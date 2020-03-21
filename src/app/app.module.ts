@@ -27,7 +27,7 @@ import { RequestPage } from './pages/request/request.page';
 // components
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CartComponent } from './components/cart/cart.component';
+import { DashboardFooterComponent } from './components/dashboard-footer/dashboard-footer.component';
 import { LoaderComponent } from './components/loader/loader.component';
 // services
 import { OnfidoAngularService } from './service/onfido.angular.service';
@@ -52,7 +52,7 @@ import { environment } from '../environments/environment';
     RequestPage,
     HeaderComponent,
     FooterComponent,
-    CartComponent,
+    DashboardFooterComponent,
     LoaderComponent
   ],
   entryComponents: [],

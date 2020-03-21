@@ -5,18 +5,18 @@
     <h4 class="page__description">Você pode escolher visualizar os pedidos de ajuda ou os favores que as pessoas estão dispostas a realizar. Você pode escoher um pedido para atender, é simples e rápido.</h4>
     <div class="page__label"></div>
     <ion-row class="ion-no-padding ">
-      <ion-col (click)="selfPickup = true" class="radio-container " size="6" tappable="">
-        <img *ngIf="selfPickup" src="../../assets/radio-selected.svg">
-        <img *ngIf="!selfPickup" src="../../assets/radio.svg">
+      <ion-col (click)="switchType()" class="radio-container " size="6" tappable="">
+        <img *ngIf="showOffers" src="../../assets/radio-selected.svg">
+        <img *ngIf="!showOffers" src="../../assets/radio.svg">
         <p>Ofertas de Ajuda</p>
       </ion-col>
-      <ion-col (click)="selectDeliveryInQatar()" class="radio-container " size="6" tappable="">
-        <img *ngIf="!selfPickup" src="../../assets/radio-selected.svg">
-        <img *ngIf="selfPickup" src="../../assets/radio.svg">
+      <ion-col (click)="switchType()" class="radio-container " size="6" tappable="">
+        <img *ngIf="!showOffers" src="../../assets/radio-selected.svg">
+        <img *ngIf="showOffers" src="../../assets/radio.svg">
         <p>Pedidos de Ajuda</p>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="selfPickup">
+    <ion-row *ngIf="showOffers">
       <!-- Minhas Ofertas -->
       <h4 class="page__description">Minhas Ofertas</h4>
       <ion-col *ngFor="let offer of myOffers" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
@@ -25,11 +25,12 @@
           <small>{{offer.description}}</small>
           <b>Contato: {{offer.phoneNumber}}</b>
         </div>
-        <input type="hidden" class="offerId" name="offerId" [value]="offer.id"/>
+        <input type="hidden" class="itemId" name="itemId" [value]="offer.id"/>
         <input type="hidden" class="isOwner" name="isOwner" [value]="offer.isOwner"/>
+        <input type="hidden" class="itemType" name="itemType" value="offer"/>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="selfPickup">
+    <ion-row *ngIf="showOffers">
       <!-- Outras Ofertas -->
       <h4 class="page__description">Outras Ofertas</h4>
       <ion-col *ngFor="let offer of otherOffers" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
@@ -38,28 +39,45 @@
           <small>{{offer.description}}</small>
           <b>Contato: {{offer.phoneNumber}}</b>
         </div>
-        <input type="hidden" class="offerId" name="offerId" [value]="offer.id"/>
+        <input type="hidden" class="itemId" name="itemId" [value]="offer.id"/>
         <input type="hidden" class="isOwner" name="isOwner" [value]="offer.isOwner"/>
+        <input type="hidden" class="itemType" name="itemType" value="offer"/>
       </ion-col>
     </ion-row>   
-    <form [formGroup]="deliveryInQatarForm" (ngSubmit)="onSubmit()" class="ng-pristine ng-invalid ng-touched">
-      <ion-row *ngIf="!selfPickup">
-        <ion-col class="pick-location-container ion-text-center " size="12">
-          <img src="../../assets/google-map.png"><b>Pin my location in Map</b>
-        </ion-col>
-        <p class="or-address">Or enter your address</p>
-        <ion-col size="12">
-          <input class="form-control" (keyup)="enableContinueButton()" formControlName="fullAddress" type="text" placeholder="Full Address"></ion-col>
-        <ion-col size="12">
-          <input class="form-control" (keyup)="enableContinueButton()" formControlName="city" type="text" placeholder="City"></ion-col>
-        <ion-col size="12">
-          <input class="form-control" (keyup)="enableContinueButton()" formControlName="deliveryInstructions" type="text" placeholder="Delivery Instructions"></ion-col>
-      </ion-row>
-    </form>
+    <ion-row *ngIf="!showOffers">
+      <!-- Minhas Solicitações -->
+      <h4 class="page__description">Minhas Solicitações</h4>
+      <ion-col *ngFor="let request of myRequests" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>{{request.user}} - {{request.city}} - {{request.neighbourhood}}</b>
+          <small>{{request.description}}</small>
+          <b>Contato: {{request.phoneNumber}}</b>
+        </div>
+        <input type="hidden" class="itemId" name="itemId" [value]="request.id"/>
+        <input type="hidden" class="isOwner" name="isOwner" [value]="request.isOwner"/>
+        <input type="hidden" class="itemType" name="itemType" value="request"/>
+        <input type="hidden" class="itemStatus" name="itemStatus" [value]="request.status"/>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!showOffers">
+      <!-- Outras Solicitações -->
+      <h4 class="page__description">Outras Solicitações</h4>
+      <ion-col *ngFor="let request of otherRequests" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
+        <img src="../../assets/store-img.svg">
+        <div><b>{{request.user}} - {{request.city}} - {{request.neighbourhood}}</b>
+          <small>{{request.description}}</small>
+          <b>Contato: {{request.phoneNumber}}</b>
+        </div>
+        <input type="hidden" class="itemId" name="itemId" [value]="request.id"/>
+        <input type="hidden" class="isOwner" name="isOwner" [value]="request.isOwner"/>
+        <input type="hidden" class="itemType" name="itemType" value="request"/>
+        <input type="hidden" class="itemStatus" name="itemStatus" [value]="request.status"/>
+      </ion-col>
+    </ion-row>
   </ion-grid>
   <ion-infinite-scroll threshold="100px" id="infinite-scroll">
-    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
+    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Buscando...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
-<!--<app-cart #footer></app-cart>-->
+<app-dashboard-footer #footer></app-dashboard-footer>
