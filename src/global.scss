@@ -29,7 +29,7 @@
 // TODO: Check for customization
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-/* Ooredoo - styles */
+/* Favor - styles */
 :root {
   --ion-color-primary: #ed1c24;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -85,41 +85,12 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
-  --ion-font-family: "Ooredoo";
+  --ion-font-family: "Favor";
   --font-weight-light: 300;
 }
 @font-face {
-  font-family: Ooredoo;
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./assets/font/OoredooArabic-Regular.eot") format("embedded-opentype"),
-    url("./assets/font/OoredooArabic-Regular.woff") format("woff"),
-    url("./assets/font/OoredooArabic-Regular.ttf") format("truetype");
-  unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC;
-}
-@font-face {
-  font-family: Ooredoo;
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url("./assets/font/OoredooArabic-Light.ttf") format("truetype");
-  unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC;
-}
-@font-face {
-  font-family: Ooredoo;
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("./assets/font/ooredoo-arabic-heavy.eot") format("embedded-opentype"),
-    url("./assets/font/ooredoo-arabic-heavy.woff") format("woff"),
-    url("./assets/font/ooredoo-arabic-heavy.ttf") format("truetype"),
-    url("./assets/font/ooredoo-arabic-heavy.svg#ooredoo-arabic-heavy") format("svg");
-  unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC;
-}
-@font-face {
-  font-family: Ooredoo;
-  src: url("./assets/font/NotoSans-Regular.ttf");
+  font-family: Favor;
+  src: url("./assets/font/BalooDa2-Medium.ttf");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -128,23 +99,11 @@
     U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
-  font-family: Ooredoo;
-  src: url("./assets/font/NotoSans-Light.ttf");
+  font-family: Favor;
+  src: url("./assets/font/BalooDa2-Regular.ttf");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
-    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD, U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
-    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: Ooredoo;
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("./assets/font/Ooredoo-Heavy.eot") format("embedded-opentype"),
-    url("./assets/font/Ooredoo-Heavy.woff") format("woff"), url("./assets/font/Ooredoo-Heavy.ttf") format("truetype"),
-    url("./assets/font/Ooredoo-Heavy.svg#Ooredoo-Heavy") format("svg");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD, U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
     U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
