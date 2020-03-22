@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Events } from '@ionic/angular';
+import { Events, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +8,7 @@ import { Events } from '@ionic/angular';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
-  constructor(private events: Events) {
+  constructor(private events: Events, private alertController: AlertController) {
   }
 
   myOffers: any[] = [{ id: '1010', user: 'Mauricio Lopes Bonetti', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'Desc1', phoneNumber: '41991696644', isOwner: true },
@@ -27,7 +27,8 @@ export class DashboardPage implements OnInit {
   { id: '1013', user: 'João', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false, status: 'unassigned' }
   ]
 
-  showOffers: boolean
+  showOffers: boolean;
+  selectedItemId: string;
 
   @ViewChild('footer', { static: false })
   footer: any;
@@ -107,6 +108,7 @@ export class DashboardPage implements OnInit {
     // Select the specific item
     let itemIdElement = selectedItem.querySelector('.itemId');
     let itemId = itemIdElement.value;
+    this.selectedItemId = itemId;
     console.log('itemId = ', itemId);
     let isOwnerElement = selectedItem.querySelector('.isOwner');
     let isOwner = isOwnerElement.value;
@@ -139,6 +141,61 @@ export class DashboardPage implements OnInit {
     console.log('switchType')
     this.hideButtons()
     this.showOffers = !this.showOffers;
+  }
+
+  onActionSelect(action: string) {
+    if (action === 'delete') {
+      this.showDeleteConfirmation();
+    } else if (action === 'accept') {
+      this.showAcceptConfirmation();
+    }
+    console.log('onActionSelect = ', action);
+  }
+
+  async showAcceptConfirmation() {
+    const alert = await this.alertController.create({
+      header: 'Aceitar',
+      message: 'Confirma a <strong>aceitação</strong> do item? Você deve entrar em contato com o solicitante. O seu número também vai ficar visível para o solicitante.',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Não aceita');
+          }
+        }, {
+          text: 'Sim',
+          handler: () => {
+            console.log('Sim aceita');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async showDeleteConfirmation() {
+    const alert = await this.alertController.create({
+      header: 'Excluir',
+      message: 'Confirma a <strong>exclusão</strong> do item?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Não exclui');
+          }
+        }, {
+          text: 'Sim',
+          handler: () => {
+            console.log('Sim exclui');
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   enableContinueButton() {

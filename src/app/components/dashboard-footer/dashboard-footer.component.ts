@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Router } from "@angular/router";
 
 @Component({
@@ -22,6 +22,8 @@ export class DashboardFooterComponent implements OnInit {
   @ViewChild('deleteButton', { static: false })
   deleteButton: any;
 
+  @Output() actionSelected = new EventEmitter<string>();
+
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -33,6 +35,8 @@ export class DashboardFooterComponent implements OnInit {
     */
   }
 
-  proceedToNextStep() {
+  actionSelect(action: string) {
+    console.log('actionSelect')
+    this.actionSelected.emit(action);
   }
 }

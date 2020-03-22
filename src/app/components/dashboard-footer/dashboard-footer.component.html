@@ -19,16 +19,16 @@
       </ion-row>
       <ion-row *ngIf="showAcceptButton" class="ion-justify-content-center no-padd ">
         <ion-col size="11">
-          <ion-button #acceptButton (click)="proceedToNextStep()"
+          <ion-button #acceptButton (click)="actionSelect('accept')"
             class="continue-btn ion-color ion-color-primary ios button button-block button-round button-solid ion-activatable ion-focusable hydrated"
             color="primary" expand="block" shape="round">Atender Solicitação</ion-button>
         </ion-col>
       </ion-row>
       <ion-row *ngIf="showDeleteButton" class="ion-justify-content-center no-padd ">
         <ion-col size="11">
-          <ion-button #deleteButton (click)="proceedToNextStep()"
+          <ion-button #deleteButton (click)="actionSelect('delete')"
             class="continue-btn ion-color ion-color-primary ios button button-block button-round button-solid ion-activatable ion-focusable hydrated"
-            color="primary" expand="block" shape="round">Remover</ion-button>
+            color="primary" expand="block" shape="round">Excluir</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
