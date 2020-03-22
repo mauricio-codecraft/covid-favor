@@ -20,7 +20,7 @@
       <!-- Minhas Ofertas -->
       <h4 class="page__description">Minhas Ofertas</h4>
       <ion-col *ngFor="let offer of myOffers" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
-        <img src="../../assets/store-img.svg">
+        <img src="../../assets/help-hand.svg">
         <div><b>{{offer.user}} - {{offer.city}} - {{offer.neighbourhood}}</b>
           <small>{{offer.description}}</small>
           <b>Contato: {{offer.phoneNumber}}</b>
@@ -34,7 +34,7 @@
       <!-- Outras Ofertas -->
       <h4 class="page__description">Outras Ofertas</h4>
       <ion-col *ngFor="let offer of otherOffers" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
-        <img src="../../assets/store-img.svg">
+        <img src="../../assets/help-hand.svg">
         <div><b>{{offer.user}} - {{offer.city}} - {{offer.neighbourhood}}</b>
           <small>{{offer.description}}</small>
           <b>Contato: {{offer.phoneNumber}}</b>
@@ -48,10 +48,11 @@
       <!-- Minhas Solicitações -->
       <h4 class="page__description">Minhas Solicitações</h4>
       <ion-col *ngFor="let request of myRequests" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
-        <img src="../../assets/store-img.svg">
+        <img src="../../assets/help-request.svg">
         <div><b>{{request.user}} - {{request.city}} - {{request.neighbourhood}}</b>
           <small>{{request.description}}</small>
-          <b>Contato: {{request.phoneNumber}}</b>
+          <b *ngIf="request.status == 'assigned'">Será atendido por: {{request.asignee}} - {{request.asignee?.phoneNumber}}</b>
+          <b *ngIf="request.status != 'assigned'">Contato: {{request.phoneNumber}}</b>
         </div>
         <input type="hidden" class="itemId" name="itemId" [value]="request.id"/>
         <input type="hidden" class="isOwner" name="isOwner" [value]="request.isOwner"/>
@@ -63,10 +64,11 @@
       <!-- Outras Solicitações -->
       <h4 class="page__description">Outras Solicitações</h4>
       <ion-col *ngFor="let request of otherRequests" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
-        <img src="../../assets/store-img.svg">
+        <img src="../../assets/help-request.svg">
         <div><b>{{request.user}} - {{request.city}} - {{request.neighbourhood}}</b>
           <small>{{request.description}}</small>
-          <b>Contato: {{request.phoneNumber}}</b>
+          <b *ngIf="request.status == 'assigned'">Será atendido por: {{request.asignee}} - {{request.asignee?.phoneNumber}}</b>
+          <b *ngIf="request.status != 'assigned'">Contato: {{request.phoneNumber}}</b>
         </div>
         <input type="hidden" class="itemId" name="itemId" [value]="request.id"/>
         <input type="hidden" class="isOwner" name="isOwner" [value]="request.isOwner"/>

@@ -20,8 +20,6 @@ import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { UserInfoPage } from './pages/user-info/user-info.page';
-import { PaymentPage } from './pages/payment/payment.page';
-import { CongratulationsPage } from './pages/congratulations/congratulations.page';
 import { OfferPage } from './pages/offer/offer.page';
 import { RequestPage } from './pages/request/request.page';
 // components
@@ -46,8 +44,6 @@ import { environment } from '../environments/environment';
     RegisterPage,
     DashboardPage,
     UserInfoPage,
-    PaymentPage,
-    CongratulationsPage,
     OfferPage,
     RequestPage,
     HeaderComponent,

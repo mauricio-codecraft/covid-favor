@@ -7,8 +7,6 @@ import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { UserInfoPage } from './pages/user-info/user-info.page';
-import { PaymentPage } from './pages/payment/payment.page';
-import { CongratulationsPage } from './pages/congratulations/congratulations.page';
 import { OfferPage } from './pages/offer/offer.page';
 import { RequestPage } from './pages/request/request.page';
 
@@ -21,8 +19,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterPage },
   { path: 'dashboard', component: DashboardPage },
   { path: 'user-info', component: UserInfoPage },
-  { path: 'payment', component: PaymentPage },
-  { path: 'congratulations', component: CongratulationsPage },
   { path: 'offer', component: OfferPage },
   { path: 'request', component: RequestPage }
 ];
