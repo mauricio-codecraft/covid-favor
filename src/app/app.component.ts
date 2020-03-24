@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import {Events} from '@ionic/angular';
 
+import Amplify from 'aws-amplify';
+import { environment } from './../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +29,27 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      console.log('environment.aws = ', environment.aws)  // FIXME: remove
+      let amplifyConfig = {
+        Auth: {
+          mandatorySignIn: true,
+          region: environment.aws.cognito.REGION,
+          userPoolId: environment.aws.cognito.USER_POOL_ID,
+          identityPoolId: environment.aws.cognito.IDENTITY_POOL_ID,
+          userPoolWebClientId: environment.aws.cognito.APP_CLIENT_ID
+        },
+        API: {
+          endpoints: [
+            {
+              name: "covid-favor",
+              endpoint: environment.aws.apiGateway.URL,
+              region: environment.aws.apiGateway.REGION
+            },
+          ]
+        }
+      };
+      console.log('amplifyConfig = ', amplifyConfig)  // FIXME: remove
+      Amplify.configure(amplifyConfig);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

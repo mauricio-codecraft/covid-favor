@@ -3,7 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  aws: {
+    apiGateway: {
+      REGION: "us-east-1",
+      URL: "https://8lx7wnv8p8.execute-api.us-east-1.amazonaws.com/prod"
+    },
+    cognito: {
+      REGION: "us-east-1",
+      USER_POOL_ID: "us-east-1_BzYg5NjcD",
+      APP_CLIENT_ID: "6kairpdpj2bsp6st0o5o00cavd",
+      IDENTITY_POOL_ID: "us-east-1:d0dbd07d-0911-42b9-9554-8cc121000c45"
+    }
+  }
 };
 
 /*
