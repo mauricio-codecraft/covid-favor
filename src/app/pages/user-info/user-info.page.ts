@@ -112,19 +112,20 @@ export class UserInfoPage implements OnInit {
         }
       }
       let signinResp: string = await Auth.signIn('+55' + phoneNumber, password);
-      console.log('signinResp = ', signinResp);
-
+      
       let firstName: string = this.userInfoForm.value.firstName;
       let lastName: string = this.userInfoForm.value.lastName;
       let city: string = this.userInfoForm.value.city;
+      localStorage.setItem('city', city);
       let region: string = '';
       let state: string = '';
       let selectedCity = this.userInfoForm.value.city;
       cities.forEach(city => {
         if (city.name == selectedCity) {
-          localStorage.setItem('city', JSON.stringify(city));
           region = city.region;
+          localStorage.setItem('region', region);
           state = city.state;
+          localStorage.setItem('state', state);
         }
       });
       let neighbourhood: string = this.userInfoForm.value.neighborhood;
@@ -149,7 +150,7 @@ export class UserInfoPage implements OnInit {
       localStorage.setItem('neighborhood', neighbourhood);
       localStorage.setItem('phoneNumber', phoneNumber);
       this.events.publish('loading:stop');
-      this.router.navigate(['/confirmation']);
+      this.router.navigate(['/dashboard']);
     }
   }
 }

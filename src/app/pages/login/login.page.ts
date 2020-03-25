@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
-import { Events } from '@ionic/angular';
+import { Events, AlertController } from '@ionic/angular';
+import { Auth, API } from 'aws-amplify';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 
 @Component({
@@ -10,22 +12,10 @@ import { Events } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  emailForm: FormGroup;
-
-  constructor(private router: Router, private events: Events) { }
-
-  /*
-  @ViewChild('backdrop', {static: false})
-  backdrop: any;
-  */
-
-  ngOnInit() {
-    this.emailForm = new FormGroup({
-      email: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-      ]))
-    });
+  
+  loginForm: FormGroup;
+  
+  constructor(private router: Router, private events: Events, private alertController: AlertController) {
   }
 
   ionViewDidEnter() {
@@ -36,12 +26,67 @@ export class LoginPage implements OnInit {
     this.events.publish('loading:start');
   }
 
-  onSubmit() {
-    console.log('emailForm = ', this.emailForm.value)
-    localStorage.setItem('email', JSON.stringify(this.emailForm.value));
-    this.router.navigate(['/register'])
+  ngOnInit() {
+    this.loginForm = new FormGroup({
+      phoneNumber: new FormControl('', Validators.compose([
+        Validators.required, Validators.minLength(11), Validators.pattern("^[0-9]*$")
+      ])),
+      password: new FormControl('', Validators.compose([
+        Validators.required
+      ]))
+    });
   }
 
+  async errorSignIn(message) {
+    const alert = await this.alertController.create({
+      header: 'Erro',
+      message: message,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            console.log('ok');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
-
+  async onSubmit() {
+    if (this.loginForm.valid) {
+      this.events.publish('loading:start');
+      let phoneNumber: string = this.loginForm.value.phoneNumber;
+      let password: string = this.loginForm.value.password;
+      try {
+        await Auth.signIn('+55' + phoneNumber, password);
+      } catch (error) {
+        this.events.publish('loading:stop');
+        console.error(error);
+        if (error.code == 'NotAuthorizedException') {
+          this.errorSignIn('Numero de telefone ou senha incorretos. Verifique seus dados.');
+        } else {
+          this.errorSignIn('Erro ao entrar na conta. Favor tentar novamente mais tarde');
+        }
+        return;
+      }
+      try {
+        let userAccount = await API.get("covid-favor", "/user-account/read", {});
+        console.log('userAccount = ', userAccount);
+        localStorage.setItem('region', userAccount.region);
+        localStorage.setItem('state', userAccount.state);
+        localStorage.setItem('firstName', userAccount.firstName);
+        localStorage.setItem('lastName', userAccount.lastName);
+        localStorage.setItem('neighborhood', userAccount.neighbourhood);
+        localStorage.setItem('phoneNumber', userAccount.phoneNumber);
+        this.events.publish('loading:stop');
+        this.router.navigate(['/dashboard']);
+      } catch (error) {
+        console.error(error);
+        this.errorSignIn('Erro ao entrar na conta. Favor tentar novamente mais tarde');
+        return;
+      }
+      this.events.publish('loading:stop');
+    }
+  }
 }

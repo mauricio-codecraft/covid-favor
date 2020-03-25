@@ -14,10 +14,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 // pages
 import { LandingPage } from './pages/landing/landing.page';
-import { ConfirmationPage } from './pages/confirmation/confirmation.page';
 import { ActionsPage } from './pages/actions/actions.page';
 import { LoginPage } from './pages/login/login.page';
-import { RegisterPage } from './pages/register/register.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { UserInfoPage } from './pages/user-info/user-info.page';
 import { OfferPage } from './pages/offer/offer.page';
@@ -38,10 +36,8 @@ import { environment } from '../environments/environment';
   declarations: [
     AppComponent,
     LandingPage,
-    ConfirmationPage,
     ActionsPage,
     LoginPage,
-    RegisterPage,
     DashboardPage,
     UserInfoPage,
     OfferPage,
