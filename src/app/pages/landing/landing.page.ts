@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Events } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -8,9 +9,12 @@ import { Events } from '@ionic/angular';
 })
 export class LandingPage implements OnInit {
 
-  constructor(private events: Events) { }
+  constructor(private events: Events, private router:Router) { }
 
   ngOnInit() {
+    if (localStorage.getItem('signedIn')) {
+      this.router.navigate(['/actions']);
+    }
   }
 
   ionViewDidEnter() {

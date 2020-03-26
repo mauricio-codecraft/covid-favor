@@ -71,16 +71,18 @@ export class LoginPage implements OnInit {
         return;
       }
       try {
-        let userAccount = await API.get("covid-favor", "/user-account/read", {});
+        let userAccount = await API.get("covid-favor", "/user-account", {});
         console.log('userAccount = ', userAccount);
         localStorage.setItem('region', userAccount.region);
         localStorage.setItem('state', userAccount.state);
         localStorage.setItem('firstName', userAccount.firstName);
         localStorage.setItem('lastName', userAccount.lastName);
-        localStorage.setItem('neighborhood', userAccount.neighbourhood);
+        localStorage.setItem('neighbourhood', userAccount.neighbourhood);
         localStorage.setItem('phoneNumber', userAccount.phoneNumber);
+        localStorage.setItem('city', userAccount.city);
+        localStorage.setItem('cityFullName', userAccount.city + '-' + userAccount.state);
         this.events.publish('loading:stop');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/actions']);
       } catch (error) {
         console.error(error);
         this.errorSignIn('Erro ao entrar na conta. Favor tentar novamente mais tarde');

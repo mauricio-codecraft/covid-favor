@@ -60,10 +60,6 @@ export class ActionsPage implements OnInit {
     selectedPack.el.classList.add('active')
   }
 
-  goToList() {
-    console.log('goToList')
-  }
-
   enableContinue() {
     this.footer.continueButton.disabled = false
   }

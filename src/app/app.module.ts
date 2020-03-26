@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AmplifyService } from 'aws-amplify-angular';
 // ionic
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { HTTP } from '@ionic-native/http/ngx';
@@ -26,7 +27,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DashboardFooterComponent } from './components/dashboard-footer/dashboard-footer.component';
 import { LoaderComponent } from './components/loader/loader.component';
 // services
-import { OnfidoAngularService } from './service/onfido.angular.service';
 // material
 import { MaterialModule } from './app.material.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -62,7 +62,7 @@ import { environment } from '../environments/environment';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    OnfidoAngularService,
+    AmplifyService,
     HTTP
   ],
   bootstrap: [AppComponent]

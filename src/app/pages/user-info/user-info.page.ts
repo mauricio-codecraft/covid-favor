@@ -34,7 +34,7 @@ export class UserInfoPage implements OnInit {
       lastName: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      neighborhood: new FormControl('', Validators.compose([
+      neighbourhood: new FormControl('', Validators.compose([
         Validators.required
       ])),
       phoneNumber: new FormControl('', Validators.compose([
@@ -47,7 +47,7 @@ export class UserInfoPage implements OnInit {
         Validators.required
       ])),
       password: new FormControl('', Validators.compose([
-        Validators.required
+        Validators.required, Validators.minLength(6)
       ]))
     });
     this.userInfoForm.get('state').valueChanges.subscribe(selectedState => {
@@ -111,8 +111,15 @@ export class UserInfoPage implements OnInit {
           this.userAlreadyExistError();
         }
       }
-      let signinResp: string = await Auth.signIn('+55' + phoneNumber, password);
-      
+
+      try {
+        let signinResp: string = await Auth.signIn('+55' + phoneNumber, password);
+        console.log('signinResp = ', signinResp);
+      } catch (err) {
+        this.events.publish('loading:stop');
+          this.userAlreadyExistError();
+      }
+            
       let firstName: string = this.userInfoForm.value.firstName;
       let lastName: string = this.userInfoForm.value.lastName;
       let city: string = this.userInfoForm.value.city;
@@ -128,7 +135,7 @@ export class UserInfoPage implements OnInit {
           localStorage.setItem('state', state);
         }
       });
-      let neighbourhood: string = this.userInfoForm.value.neighborhood;
+      let neighbourhood: string = this.userInfoForm.value.neighbourhood;
       try {
         await API.post("covid-favor", "/user-account", {
           body: {
@@ -143,14 +150,16 @@ export class UserInfoPage implements OnInit {
         });
       } catch (error) {
         console.error(error);
+        this.events.publish('loading:stop');
         this.errorCreatingUser();
       }
+      localStorage.setItem('cityFullName', city + '-' + state);
       localStorage.setItem('firstName', firstName);
       localStorage.setItem('lastName', lastName);
-      localStorage.setItem('neighborhood', neighbourhood);
+      localStorage.setItem('neighbourhood', neighbourhood);
       localStorage.setItem('phoneNumber', phoneNumber);
       this.events.publish('loading:stop');
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/actions']);
     }
   }
 }

@@ -17,6 +17,7 @@ export class FooterComponent implements OnInit {
 
   onContinue() {
     let nextRoute: string = localStorage.getItem('nextRoute');
+    console.log('next route = ' + nextRoute);
     if (this.continueButton.disabled === false) {
       this.router.navigate(['/' + nextRoute]);
     }

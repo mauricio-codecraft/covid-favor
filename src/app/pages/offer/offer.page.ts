@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { Events } from '@ionic/angular';
+import { Events, AlertController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { API } from 'aws-amplify';
 
 @Component({
   selector: 'app-offer',
@@ -14,10 +15,10 @@ export class OfferPage implements OnInit {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  city: string;
-  neighborhood: string;
+  cityFullName: string;
+  neighbourhood: string;
 
-  constructor(private router: Router, private events: Events) {
+  constructor(private router: Router, private events: Events, private alertController: AlertController) {
   }
 
   ionViewDidEnter() {
@@ -32,9 +33,8 @@ export class OfferPage implements OnInit {
     this.firstName = localStorage.getItem('firstName');
     this.lastName = localStorage.getItem('lastName');
     this.phoneNumber = localStorage.getItem('phoneNumber');
-    let city: any = JSON.parse(localStorage.getItem('city')); 
-    this.city = city.fullName;
-    this.neighborhood = localStorage.getItem('neighborhood');    
+    this.cityFullName = localStorage.getItem('cityFullName');
+    this.neighbourhood = localStorage.getItem('neighbourhood');
     this.offerForm = new FormGroup({
       description: new FormControl('', Validators.compose([
         Validators.required
@@ -42,11 +42,47 @@ export class OfferPage implements OnInit {
     });
   }
 
-  onSubmit() {
+  async showMessage(message) {
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      message: message,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async onSubmit() {
     if (this.offerForm.valid) {
-      let description: string = this.offerForm.value.lastName;
-      console.log('description = ',  description);
-      this.router.navigate(['/dashobard']);
+      this.events.publish('loading:start');
+      let description: string = this.offerForm.value.description;
+      try {
+        await API.post("covid-favor", "/help", {
+          body: {
+            isOffer: true,
+            city: localStorage.getItem('city'),
+            region: localStorage.getItem('region'),
+            state: localStorage.getItem('state'),
+            description: description,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            neighbourhood: this.neighbourhood,
+            phoneNumber: this.phoneNumber,
+            createdAt: Date.now()
+          }
+        });
+        this.showMessage('Oferta de ajuda criada com sucesso!');
+        this.router.navigate(['/dashboard']);
+      } catch (error) {
+        console.log(error)
+        this.showMessage('Erro ao criar oferta de ajuda. Tente novamente mais tarde.');
+      }
+      this.events.publish('loading:stop');
     }
   }
 }

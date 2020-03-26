@@ -7,16 +7,17 @@ import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { UserInfoPage } from './pages/user-info/user-info.page';
 import { OfferPage } from './pages/offer/offer.page';
 import { RequestPage } from './pages/request/request.page';
+import { AuthGuard } from './guard/authguard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
   { path: 'landing', component: LandingPage },
-  { path: 'actions', component: ActionsPage },
+  { path: 'actions', component: ActionsPage, canActivate: [AuthGuard] },
   { path: 'login', component: LoginPage },
-  { path: 'dashboard', component: DashboardPage },
+  { path: 'dashboard', component: DashboardPage, canActivate: [AuthGuard] },
   { path: 'user-info', component: UserInfoPage },
-  { path: 'offer', component: OfferPage },
-  { path: 'request', component: RequestPage }
+  { path: 'offer', component: OfferPage, canActivate: [AuthGuard] },
+  { path: 'request', component: RequestPage, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
