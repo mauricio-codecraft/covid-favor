@@ -21,13 +21,14 @@
       <h4 class="page__description">Minhas Ofertas</h4>
       <ion-col *ngFor="let offer of myOffers" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
         <img src="../../assets/help-hand.svg">
-        <div><b>{{offer.user}} - {{offer.city}} - {{offer.neighbourhood}}</b>
+        <div><b>{{offer.firstName}} {{offer.lastName}} - {{offer.city}} - {{offer.neighbourhood}}</b>
           <small>{{offer.description}}</small>
           <b>Contato: {{offer.phoneNumber}}</b>
         </div>
-        <input type="hidden" class="itemId" name="itemId" [value]="offer.id"/>
-        <input type="hidden" class="isOwner" name="isOwner" [value]="offer.isOwner"/>
-        <input type="hidden" class="itemType" name="itemType" value="offer"/>
+        <input type="hidden" class="helpId" name="helpId" [value]="offer.helpId"/>
+        <input type="hidden" class="userId" name="userId" [value]="offer.userId"/>
+        <input type="hidden" class="createdAt" name="createdAt" [value]="offer.createdAt"/>
+        <input type="hidden" class="helpType" name="helpType" value="offer"/>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="showOffers">
@@ -35,13 +36,13 @@
       <h4 class="page__description">Outras Ofertas</h4>
       <ion-col *ngFor="let offer of otherOffers" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
         <img src="../../assets/help-hand.svg">
-        <div><b>{{offer.user}} - {{offer.city}} - {{offer.neighbourhood}}</b>
+        <div><b>{{offer.firstName}} {{offer.lastName}} - {{offer.city}} - {{offer.neighbourhood}}</b>
           <small>{{offer.description}}</small>
           <b>Contato: {{offer.phoneNumber}}</b>
         </div>
-        <input type="hidden" class="itemId" name="itemId" [value]="offer.id"/>
-        <input type="hidden" class="isOwner" name="isOwner" [value]="offer.isOwner"/>
-        <input type="hidden" class="itemType" name="itemType" value="offer"/>
+        <input type="hidden" class="helpId" name="helpId" [value]="offer.helpId"/>
+        <input type="hidden" class="userId" name="userId" [value]="offer.userId"/>
+        <input type="hidden" class="helpType" name="helpType" value="offer"/>
       </ion-col>
     </ion-row>   
     <ion-row *ngIf="!showOffers">
@@ -49,15 +50,16 @@
       <h4 class="page__description">Minhas Solicitações</h4>
       <ion-col *ngFor="let request of myRequests" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
         <img src="../../assets/help-request.svg">
-        <div><b>{{request.user}} - {{request.city}} - {{request.neighbourhood}}</b>
+        <div><b>{{request.firstName}} {{request.lastName}} - {{request.city}} - {{request.neighbourhood}}</b>
           <small>{{request.description}}</small>
           <b *ngIf="request.status == 'assigned'">Será atendido por: {{request.asignee}} - {{request.asignee?.phoneNumber}}</b>
           <b *ngIf="request.status != 'assigned'">Contato: {{request.phoneNumber}}</b>
         </div>
-        <input type="hidden" class="itemId" name="itemId" [value]="request.id"/>
-        <input type="hidden" class="isOwner" name="isOwner" [value]="request.isOwner"/>
-        <input type="hidden" class="itemType" name="itemType" value="request"/>
-        <input type="hidden" class="itemStatus" name="itemStatus" [value]="request.status"/>
+        <input type="hidden" class="helpId" name="helpId" [value]="request.helpId"/>
+        <input type="hidden" class="userId" name="userId" [value]="request.userId"/>
+        <input type="hidden" class="createdAt" name="createdAt" [value]="request.createdAt"/>
+        <input type="hidden" class="helpType" name="helpType" value="request"/>
+        <input type="hidden" class="helpStatus" name="helpStatus" [value]="request.status"/>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="!showOffers">
@@ -65,15 +67,17 @@
       <h4 class="page__description">Outras Solicitações</h4>
       <ion-col *ngFor="let request of otherRequests" class="selectableItem" (click)="selectItem($event)" class="delivery-cart" size="12">
         <img src="../../assets/help-request.svg">
-        <div><b>{{request.user}} - {{request.city}} - {{request.neighbourhood}}</b>
+        <div><b>{{request.firstName}} {{request.lastName}} - {{request.city}} - {{request.neighbourhood}}</b>
           <small>{{request.description}}</small>
-          <b *ngIf="request.status == 'assigned'">Será atendido por: {{request.asignee}} - {{request.asignee?.phoneNumber}}</b>
+          <b *ngIf="request.status == 'assigned'">Será atendido por: {{request.asigneeFullName}} - {{request.asigneePhoneNumber}}</b>
           <b *ngIf="request.status != 'assigned'">Contato: {{request.phoneNumber}}</b>
         </div>
-        <input type="hidden" class="itemId" name="itemId" [value]="request.id"/>
-        <input type="hidden" class="isOwner" name="isOwner" [value]="request.isOwner"/>
-        <input type="hidden" class="itemType" name="itemType" value="request"/>
-        <input type="hidden" class="itemStatus" name="itemStatus" [value]="request.status"/>
+        <input type="hidden" class="helpId" name="helpId" [value]="request.helpId"/>
+        <input type="hidden" class="userId" name="userId" [value]="request.userId"/>
+        <input type="hidden" class="region" name="region" [value]="request.region"/>
+        <input type="hidden" class="createdAt" name="createdAt" [value]="request.createdAt"/>
+        <input type="hidden" class="helpType" name="helpType" value="request"/>
+        <input type="hidden" class="helpStatus" name="helpStatus" [value]="request.status"/>
       </ion-col>
     </ion-row>
   </ion-grid>

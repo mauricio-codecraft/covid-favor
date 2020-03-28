@@ -73,6 +73,7 @@ export class LoginPage implements OnInit {
       try {
         let userAccount = await API.get("covid-favor", "/user-account", {});
         console.log('userAccount = ', userAccount);
+        localStorage.setItem('userId', userAccount.userId);
         localStorage.setItem('region', userAccount.region);
         localStorage.setItem('state', userAccount.state);
         localStorage.setItem('firstName', userAccount.firstName);

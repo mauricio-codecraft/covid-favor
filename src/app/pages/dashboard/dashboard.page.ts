@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Events, AlertController } from '@ionic/angular';
+import { API } from 'aws-amplify';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,31 +12,24 @@ export class DashboardPage implements OnInit {
   constructor(private events: Events, private alertController: AlertController) {
   }
 
-  myOffers: any[] = [{ id: '1010', user: 'Mauricio Lopes Bonetti', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'Desc1', phoneNumber: '41991696644', isOwner: true },
-  { id: '1011', user: 'Mauricio Lopes Bonetti1', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true }
-  ]
-
-  otherOffers: any[] = [{ id: '1012', user: 'João', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'Desc1', phoneNumber: '41991696644', isOwner: false },
-  { id: '1013', user: 'João', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false }
-  ]
-
-  myRequests: any[] = [{ id: '1010', user: 'Mauricio Lopes Bonetti', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'Ajuda1', phoneNumber: '41991696644', isOwner: true, status: 'assigned' },
-  { id: '1011', user: 'Mauricio Lopes Bonetti1', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: true, status: 'unassigned' }
-  ]
-
-  otherRequests: any[] = [{ id: '1012', user: 'João', city: 'Curitiba-PR', neighbourhood: 'Vila Izabel', description: 'ajuda2', phoneNumber: '41991696644', isOwner: false, status: 'assigned'  },
-  { id: '1013', user: 'João', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false, status: 'unassigned' }
-  ]
+  
+  myOffers: any[] = [];  
+  otherOffers: any[] = [];  
+  myRequests: any[] = [];  
+  otherRequests: any[] = [];
 
   showOffers: boolean;
-  selectedItemId: string;
+  selectedHelpId: string;
+  selectedHelpRegion: string;
+  selectedHelpUserId: string;
+  selectedHelpCreatedAt: string;
 
   @ViewChild('footer', { static: false })
   footer: any;
 
   infiniteScroll: any;
 
-  ngOnInit() {
+  async ngOnInit() {
     this.showOffers = true
     let grid = document.getElementById('grid');
     grid.addEventListener("scroll", () => {
@@ -56,6 +50,7 @@ export class DashboardPage implements OnInit {
         infiniteScroll.disabled = true;
       }
       */
+      /*
       this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
       this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
       this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
@@ -65,6 +60,7 @@ export class DashboardPage implements OnInit {
       this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
       this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
       this.otherOffers.push({ id: '1014', user: 'João3', city: 'Curitiba-PR1', neighbourhood: 'Vila Izabel1', description: 'Desc2', phoneNumber: '41991696644', isOwner: false });
+      */
 
       await this.wait(500);
       if (this.otherOffers.length > 50) {
@@ -73,6 +69,51 @@ export class DashboardPage implements OnInit {
       this.infiniteScroll.complete();
       console.log('complete')
     }.bind(this));
+
+    // Retrieve customer offers and requests
+    API.get("covid-favor", "/help", {
+      queryStringParameters: {
+        onlyMyItems: true,
+        region: localStorage.getItem('region')
+      }
+    }).then(helpItems => {
+      console.log('helpItems = ', helpItems);
+      if (Array.isArray(helpItems) && helpItems.length) {
+        helpItems.forEach(item => {
+          if (item.isOffer == true) {
+            this.myOffers.push(item);
+          } else {
+            this.myRequests.push(item);
+          }
+        })
+      }
+    }).catch(error => {
+      console.log(error.response)
+      this.showErrorMessage();
+    });
+
+    // Retrieve other customer offers and requests
+    API.get("covid-favor", "/help", {
+      queryStringParameters: {
+        onlyMyItems: false,
+        region: localStorage.getItem('region'),
+        state: localStorage.getItem('state'),
+      }
+    }).then(helpItems => {
+      console.log('helpItems = ', helpItems);
+      if (Array.isArray(helpItems) && helpItems.length) {
+        helpItems.forEach(item => {
+          if (item.isOffer == true) {
+            this.otherOffers.push(item);
+          } else {
+            this.otherRequests.push(item);
+          }
+        });
+      }
+    }).catch(error => {
+      console.log(error.response)
+      this.showErrorMessage();
+    });
   }
 
   // TODO: remove!
@@ -96,7 +137,7 @@ export class DashboardPage implements OnInit {
 
   selectItem(event) {
     this.hideButtons()
-    // Disable all and activate one    
+    // Disable all and activate one
     let selectedItem = event.currentTarget;
     console.log('selectedItem = ', selectedItem);
     let allItems = document.querySelectorAll('.delivery-cart');
@@ -106,26 +147,24 @@ export class DashboardPage implements OnInit {
     selectedItem.classList.add('active');
 
     // Select the specific item
-    let itemIdElement = selectedItem.querySelector('.itemId');
-    let itemId = itemIdElement.value;
-    this.selectedItemId = itemId;
-    console.log('itemId = ', itemId);
-    let isOwnerElement = selectedItem.querySelector('.isOwner');
-    let isOwner = isOwnerElement.value;
-    console.log('isOwner = ', isOwner);
-    let itemTypeElement = selectedItem.querySelector('.itemType');
-    let itemType = itemTypeElement.value;
-    console.log('itemType = ', itemType);
-
-    if (isOwner == 'true') {
+    this.selectedHelpId = selectedItem.querySelector('.helpId').value;
+    console.log('selectedHelpId = ', this.selectedHelpId);
+    this.selectedHelpUserId = selectedItem.querySelector('.userId').value;
+    console.log('selectedHelpUserId = ', this.selectedHelpUserId);
+    this.selectedHelpCreatedAt = selectedItem.querySelector('.createdAt').value;
+    let helpType = selectedItem.querySelector('.helpType').value;
+    console.log('helpType = ', helpType);
+    
+    // Display actions
+    if (this.selectedHelpUserId == localStorage.getItem('userId')) {
       this.footer.showDeleteButton = true;
     } else {
       this.footer.showDeleteButton = false;
-      if (itemType == 'request') {
-        let itemStatusElement = selectedItem.querySelector('.itemStatus');
-        let itemStatus = itemStatusElement.value;
-        console.log('itemStatus = ', itemStatus);
-        if (itemStatus == 'unassigned') {
+      if (helpType == 'request') {
+        let helpStatus = selectedItem.querySelector('.helpStatus').value;
+        this.selectedHelpRegion = selectedItem.querySelector('.region').value;
+        console.log('helpStatus = ', helpStatus);
+        if (helpStatus == 'unassigned') {
           this.footer.showAcceptButton = true;
         }
       }
@@ -167,7 +206,7 @@ export class DashboardPage implements OnInit {
         }, {
           text: 'Sim',
           handler: () => {
-            console.log('Sim aceita');
+            this.acceptHelpItem();
           }
         }
       ]
@@ -190,7 +229,7 @@ export class DashboardPage implements OnInit {
         }, {
           text: 'Sim',
           handler: () => {
-            console.log('Sim exclui');
+            this.deleteHelpItem();
           }
         }
       ]
@@ -198,24 +237,71 @@ export class DashboardPage implements OnInit {
     await alert.present();
   }
 
-  enableContinueButton() {
-    /*
-    console.log('deliveryInQatarForm = ', this.deliveryInQatarForm)
-    if (this.deliveryInQatarForm.valid) {
-      this.footer.continueButton.disabled = false
-    }
-    */
+  async showErrorMessage() {
+    const alert = await this.alertController.create({
+      header: 'Erro',
+      message: 'Erro ao realizar a ação. Tente novamente mais tarde.',
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
-  onSubmit() {
-    /*
-    if (this.deliveryInQatarForm.valid) {
-      this.footer.continueButton.disabled = false
-      localStorage.setItem('fullAddress', this.deliveryInQatarForm.value.fullAddress)
-      localStorage.setItem('city', this.deliveryInQatarForm.value.city)
-      localStorage.setItem('deliveryInstructions', this.deliveryInQatarForm.value.deliveryInstructions)
-      this.footer.continueButton.disabled = false
-    }
-    */
+  acceptHelpItem() {
+    console.log('acceptHelpItem');
+    // accept customer request
+    API.post('covid-favor', '/help/accept', {
+      body: {
+        region: this.selectedHelpRegion,
+        selectedHelpUserId: this.selectedHelpUserId,
+        createdAt: this.selectedHelpCreatedAt,
+        asigneeFullName: localStorage.getItem('firstName') + localStorage.getItem('lastName'),
+        asigneePhoneNumber: localStorage.getItem('phoneNumber')
+      }
+    }).then(result => {
+      // change request
+      let request = this.otherRequests.filter(h => (h.helpId == this.selectedHelpId))[0];
+      console.log('request before = ', request);
+      request.asigneeFullName = localStorage.getItem('firstName') + localStorage.getItem('lastName');
+      request.asigneePhoneNumber = localStorage.getItem('phoneNumber');
+      request.status = 'assigned';
+      console.log('request after = ', request);
+      // Remove selected request from list
+      this.otherRequests = this.otherRequests.filter(h => (h.helpId != this.selectedHelpId));
+      // Add selected request from list in the first position
+      this.otherRequests.splice(0, 0, request);
+      this.hideButtons();
+    }).catch(error => {
+      console.error(error);
+      this.showErrorMessage();
+    });
+  }
+
+  deleteHelpItem() {
+    console.log('deleteHelpItem');
+    // delete customer offers and requests
+    API.del('covid-favor', '/help/', {
+      queryStringParameters: {
+        region: localStorage.getItem('region'),
+        selectedHelpUserId: this.selectedHelpUserId,
+        createdAt: this.selectedHelpCreatedAt
+      }
+    }).then(result => {
+      // Remove deleted item from list
+      this.myRequests = this.myRequests.filter(h => (h.helpId != this.selectedHelpId));
+      this.myOffers = this.myOffers.filter(h => (h.helpId != this.selectedHelpId));
+      this.hideButtons();
+    }).catch(error => {
+      console.error(error);
+      this.showErrorMessage();
+    });
   }
 }
