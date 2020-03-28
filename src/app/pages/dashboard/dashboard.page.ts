@@ -154,6 +154,8 @@ export class DashboardPage implements OnInit {
     this.selectedHelpCreatedAt = selectedItem.querySelector('.createdAt').value;
     let helpType = selectedItem.querySelector('.helpType').value;
     console.log('helpType = ', helpType);
+
+    console.log('userId = ', localStorage.getItem('userId'));
     
     // Display actions
     if (this.selectedHelpUserId == localStorage.getItem('userId')) {

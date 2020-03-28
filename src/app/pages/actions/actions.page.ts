@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { Events } from '@ionic/angular';
+import { Events, AlertController } from '@ionic/angular';
+import { API } from 'aws-amplify';
 
 @Component({
   selector: 'app-actions',
@@ -8,7 +9,7 @@ import { Events } from '@ionic/angular';
 })
 export class ActionsPage implements OnInit {
 
-  constructor(private renderer: Renderer2, private events: Events) { }
+  constructor(private renderer: Renderer2, private events: Events, private alertController: AlertController) { }
 
   @ViewChild('firstPackContainer', {static: false})
   firstPackContainer: any;
@@ -25,7 +26,44 @@ export class ActionsPage implements OnInit {
   firstName: string;
 
   ngOnInit() {
-    this.firstName = localStorage.getItem('firstName')
+    this.loadUserAccount();
+  }
+
+  async loadUserAccount() {
+    try {
+      let userAccount = await API.get("covid-favor", "/user-account", {});
+      console.log('userAccount = ', userAccount);
+      localStorage.setItem('userId', userAccount.userId);
+      localStorage.setItem('region', userAccount.region);
+      localStorage.setItem('state', userAccount.state);
+      localStorage.setItem('firstName', userAccount.firstName);
+      localStorage.setItem('lastName', userAccount.lastName);
+      localStorage.setItem('neighbourhood', userAccount.neighbourhood);
+      localStorage.setItem('phoneNumber', userAccount.phoneNumber);
+      localStorage.setItem('city', userAccount.city);
+      localStorage.setItem('cityFullName', userAccount.city + '-' + userAccount.state);
+    } catch (error) {
+      console.error(error);
+      this.errorSignIn('Erro ao entrar na conta. Favor tentar novamente mais tarde');
+      return;
+    }
+    this.firstName = localStorage.getItem('firstName');
+  }
+
+  async errorSignIn(message) {
+    const alert = await this.alertController.create({
+      header: 'Erro',
+      message: message,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            console.log('ok');
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   ionViewDidEnter() {

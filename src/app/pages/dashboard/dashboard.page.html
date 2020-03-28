@@ -26,6 +26,7 @@
           <b>Contato: {{offer.phoneNumber}}</b>
         </div>
         <input type="hidden" class="helpId" name="helpId" [value]="offer.helpId"/>
+        <input type="hidden" class="region" name="region" [value]="offer.region"/>
         <input type="hidden" class="userId" name="userId" [value]="offer.userId"/>
         <input type="hidden" class="createdAt" name="createdAt" [value]="offer.createdAt"/>
         <input type="hidden" class="helpType" name="helpType" value="offer"/>
@@ -56,6 +57,7 @@
           <b *ngIf="request.status != 'assigned'">Contato: {{request.phoneNumber}}</b>
         </div>
         <input type="hidden" class="helpId" name="helpId" [value]="request.helpId"/>
+        <input type="hidden" class="region" name="region" [value]="request.region"/>
         <input type="hidden" class="userId" name="userId" [value]="request.userId"/>
         <input type="hidden" class="createdAt" name="createdAt" [value]="request.createdAt"/>
         <input type="hidden" class="helpType" name="helpType" value="request"/>

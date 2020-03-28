@@ -153,11 +153,6 @@ export class UserInfoPage implements OnInit {
         this.events.publish('loading:stop');
         this.errorCreatingUser();
       }
-      localStorage.setItem('cityFullName', city + '-' + state);
-      localStorage.setItem('firstName', firstName);
-      localStorage.setItem('lastName', lastName);
-      localStorage.setItem('neighbourhood', neighbourhood);
-      localStorage.setItem('phoneNumber', phoneNumber);
       this.events.publish('loading:stop');
       this.router.navigate(['/actions']);
     }
