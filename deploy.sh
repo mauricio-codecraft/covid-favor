@@ -24,5 +24,5 @@ echo "covid-favor deployment to S3 completed!"
 
 # creating invalidation
 echo "Creating invalidation for website"
-aws cloudfront create-invalidation --distribution-id E2URYH50YBZ9A1 --paths /*
+aws cloudfront create-invalidation --distribution-id E2V015ZPVM81RX --paths '/*'
 echo "Invalidation request is completed!"
