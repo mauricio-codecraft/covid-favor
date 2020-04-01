@@ -11,7 +11,6 @@ import { API } from 'aws-amplify';
 export class DashboardPage implements OnInit {
   constructor(private events: Events, private alertController: AlertController) {
   }
-
   
   myOffers: any[] = [];  
   otherOffers: any[] = [];  
@@ -70,6 +69,53 @@ export class DashboardPage implements OnInit {
       console.log('complete')
     }.bind(this));
 
+    this.getMyOffersAndRequests();
+    this.getOthersOffersAndRequests();
+  }
+
+  getOthersOffersAndRequests() {
+    // Retrieve other customer offers
+    API.get("covid-favor", "/help", {
+      queryStringParameters: {
+        onlyMyItems: false,
+        region: localStorage.getItem('region'),
+        state: localStorage.getItem('state'),
+        isOffer: true
+      }
+    }).then(helpItems => {
+      console.log('helpItems = ', helpItems);
+      if (Array.isArray(helpItems) && helpItems.length) {
+        helpItems.forEach(item => {
+          this.otherOffers.push(item);
+        });
+      }
+    }).catch(error => {
+      console.log(error.response)
+      this.showErrorMessage();
+    });
+
+    // Retrieve other customer requests
+    API.get("covid-favor", "/help", {
+      queryStringParameters: {
+        onlyMyItems: false,
+        region: localStorage.getItem('region'),
+        state: localStorage.getItem('state'),
+        isOffer: false
+      }
+    }).then(helpItems => {
+      console.log('helpItems = ', helpItems);
+      if (Array.isArray(helpItems) && helpItems.length) {
+        helpItems.forEach(item => {
+          this.otherRequests.push(item);
+        });
+      }
+    }).catch(error => {
+      console.log(error.response)
+      this.showErrorMessage();
+    });
+  }
+
+  getMyOffersAndRequests() {
     // Retrieve customer offers and requests
     API.get("covid-favor", "/help", {
       queryStringParameters: {
@@ -86,29 +132,6 @@ export class DashboardPage implements OnInit {
             this.myRequests.push(item);
           }
         })
-      }
-    }).catch(error => {
-      console.log(error.response)
-      this.showErrorMessage();
-    });
-
-    // Retrieve other customer offers and requests
-    API.get("covid-favor", "/help", {
-      queryStringParameters: {
-        onlyMyItems: false,
-        region: localStorage.getItem('region'),
-        state: localStorage.getItem('state'),
-      }
-    }).then(helpItems => {
-      console.log('helpItems = ', helpItems);
-      if (Array.isArray(helpItems) && helpItems.length) {
-        helpItems.forEach(item => {
-          if (item.isOffer == true) {
-            this.otherOffers.push(item);
-          } else {
-            this.otherRequests.push(item);
-          }
-        });
       }
     }).catch(error => {
       console.log(error.response)
