@@ -22,9 +22,10 @@
       <ion-col *ngFor="let offer of myOffers" class="selectableItem" (click)="selectItem($event)" class="delivery-cart"
         size="12">
         <img src="../../assets/help-hand.svg">
-        <div><b>{{offer.firstName}} {{offer.lastName}} - {{offer.city}} - {{offer.neighbourhood}}</b>
-          <small>{{offer.description}}</small>
+        <div>
+          <b>{{offer.firstName}} {{offer.lastName}} - {{offer.city}} - {{offer.neighbourhood}}</b>
           <b>Contato: {{offer.phoneNumber}}</b>
+          <small>{{offer.description}}</small>
         </div>
         <input type="hidden" class="helpId" name="helpId" [value]="offer.helpId" />
         <input type="hidden" class="region" name="region" [value]="offer.region" />
@@ -44,9 +45,10 @@
       <ion-col *ngFor="let offer of otherOffers" class="selectableItem" (click)="selectItem($event)"
         class="delivery-cart" size="12">
         <img src="../../assets/help-hand.svg">
-        <div><b>{{offer.firstName}} {{offer.lastName}} - {{offer.city}} - {{offer.neighbourhood}}</b>
-          <small>{{offer.description}}</small>
+        <div>
+          <b>{{offer.firstName}} {{offer.lastName}} - {{offer.city}} - {{offer.neighbourhood}}</b>
           <b>Contato: {{offer.phoneNumber}}</b>
+          <small>{{offer.description}}</small>
         </div>
         <input type="hidden" class="helpId" name="helpId" [value]="offer.helpId" />
         <input type="hidden" class="userId" name="userId" [value]="offer.userId" />
@@ -64,10 +66,10 @@
       <ion-col *ngFor="let request of myRequests" class="selectableItem" (click)="selectItem($event)"
         class="delivery-cart" size="12">
         <img src="../../assets/help-request.svg">
-        <div><b>{{request.firstName}} {{request.lastName}} - {{request.city}} - {{request.neighbourhood}} - Contato: {{request.phoneNumber}}</b>
+        <div><b>{{request.firstName}} {{request.lastName}} - {{request.city}} - {{request.neighbourhood}}</b>
+          <b>Contato: {{request.phoneNumber}}</b>
           <small>{{request.description}}</small>
-          <b *ngIf="request.status == 'assigned'">Ajuda será feita por: {{request.asignee}} -
-            {{request.asignee?.phoneNumber}}</b>
+          <b *ngIf="request.status == 'assigned'">{{request.asigneeFullName}} é quem vai te ajudar! Contato: {{request.asigneePhoneNumber}} </b>
         </div>
         <input type="hidden" class="helpId" name="helpId" [value]="request.helpId" />
         <input type="hidden" class="region" name="region" [value]="request.region" />
@@ -88,10 +90,10 @@
       <ion-col *ngFor="let request of otherRequests" class="selectableItem" (click)="selectItem($event)"
         class="delivery-cart" size="12">
         <img src="../../assets/help-request.svg">
-        <div><b>{{request.firstName}} {{request.lastName}} - {{request.city}} - {{request.neighbourhood}} - Contato: {{request.phoneNumber}}</b>
+        <div><b>{{request.firstName}} {{request.lastName}} - {{request.city}} - {{request.neighbourhood}}</b>
+          <b>Contato: {{request.phoneNumber}}</b>
           <small>{{request.description}}</small>
-          <b *ngIf="request.status == 'assigned'">Ajuda será feita por: {{request.asignee}} -
-            {{request.asignee?.phoneNumber}}</b>
+          <b *ngIf="request.status == 'assigned'">{{request.asigneeFullName}} é quem vai ajudar! Contato: {{request.asigneePhoneNumber}} </b>
         </div>
         <input type="hidden" class="helpId" name="helpId" [value]="request.helpId" />
         <input type="hidden" class="userId" name="userId" [value]="request.userId" />

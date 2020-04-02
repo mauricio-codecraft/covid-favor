@@ -26,7 +26,6 @@ export class ActionsPage implements OnInit {
   firstName: string;
 
   ngOnInit() {
-    this.loadUserAccount();
   }
 
   async loadUserAccount() {
@@ -64,6 +63,10 @@ export class ActionsPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  ionViewWillEnter() {
+    this.loadUserAccount();
   }
 
   ionViewDidEnter() {

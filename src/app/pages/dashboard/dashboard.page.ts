@@ -299,7 +299,7 @@ export class DashboardPage implements OnInit {
       // change request
       let request = this.otherRequests.filter(h => (h.helpId == this.selectedHelpId))[0];
       console.log('request before = ', request);
-      request.asigneeFullName = localStorage.getItem('firstName') + localStorage.getItem('lastName');
+      request.asigneeFullName = localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName');
       request.asigneePhoneNumber = localStorage.getItem('phoneNumber');
       request.status = 'assigned';
       console.log('request after = ', request);
