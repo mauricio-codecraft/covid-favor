@@ -77,7 +77,7 @@ export class OfferPage implements OnInit {
           }
         });
         this.showMessage('Oferta de ajuda criada com sucesso!');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard'], { queryParams: { showOffers: true } });
       } catch (error) {
         console.log(error)
         this.showMessage('Erro ao criar oferta de ajuda. Tente novamente mais tarde.');

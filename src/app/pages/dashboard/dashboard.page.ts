@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Events, AlertController } from '@ionic/angular';
 import { API } from 'aws-amplify';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,12 +10,12 @@ import { API } from 'aws-amplify';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
-  constructor(private events: Events, private alertController: AlertController) {
+  constructor(private events: Events, private alertController: AlertController, private activatedRoute: ActivatedRoute) {
   }
-  
-  myOffers: any[] = [];  
-  otherOffers: any[] = [];  
-  myRequests: any[] = [];  
+
+  myOffers: any[] = [];
+  otherOffers: any[] = [];
+  myRequests: any[] = [];
   otherRequests: any[] = [];
 
   showOffers: boolean;
@@ -30,6 +31,9 @@ export class DashboardPage implements OnInit {
 
   async ngOnInit() {
     this.showOffers = true
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.showOffers = params['showOffers'] == 'true';
+    });
     let grid = document.getElementById('grid');
     grid.addEventListener("scroll", () => {
       console.log('scroll event')
@@ -179,7 +183,7 @@ export class DashboardPage implements OnInit {
     console.log('helpType = ', helpType);
 
     console.log('userId = ', localStorage.getItem('userId'));
-    
+
     // Display actions
     if (this.selectedHelpUserId == localStorage.getItem('userId')) {
       this.footer.showDeleteButton = true;
@@ -272,7 +276,7 @@ export class DashboardPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            
+
           }
         }
       ]

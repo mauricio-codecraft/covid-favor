@@ -2,8 +2,7 @@
 <ion-content class="ion-padding " style="--offset-top:0px; --offset-bottom:0px;">
   <ion-grid id="grid">
     <p class="page__title">Mural</p>
-    <h4 class="page__description">Aqui você pode visualizar os pedidos de ajuda ou os favores que as pessoas estão
-      dispostas a realizar. Você pode escolher um pedido para atender. É simples e rápido!</h4>
+    <h4 class="page__description">Aqui você pode visualizar os pedidos e ofertas de ajuda. Você pode atender um pedido de ajuda, ou entrar em contato com quem estiver disposto a te ajudar. É simples e rápido!</h4>
     <div class="page__label"></div>
     <ion-row class="ion-no-padding ">
       <ion-col (click)="switchType()" class="radio-container " size="6" tappable="">
@@ -60,8 +59,8 @@
       </ion-col>
     </ion-row>
     <ion-row *ngIf="!showOffers">
-      <!-- Minhas Solicitações -->
-      <h4 class="page__description">Minhas Solicitações</h4>
+      <!-- Meus Pedidos de Ajuda -->
+      <h4 class="page__description">Meus Pedidos de Ajuda</h4>
       <ion-col *ngFor="let request of myRequests" class="selectableItem" (click)="selectItem($event)"
         class="delivery-cart" size="12">
         <img src="../../assets/help-request.svg">
@@ -85,8 +84,8 @@
       </ion-col>
     </ion-row>
     <ion-row *ngIf="!showOffers">
-      <!-- Outras Solicitações -->
-      <h4 class="page__description">Outras Solicitações</h4>
+      <!-- Outros Pedidos de Ajuda -->
+      <h4 class="page__description">Outros Pedidos de Ajuda</h4>
       <ion-col *ngFor="let request of otherRequests" class="selectableItem" (click)="selectItem($event)"
         class="delivery-cart" size="12">
         <img src="../../assets/help-request.svg">

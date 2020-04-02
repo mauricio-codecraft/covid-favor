@@ -77,7 +77,7 @@ export class RequestPage implements OnInit {
           }
         });
         this.showMessage('Solicitação de ajuda criada com sucesso!');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard'], { queryParams: { showOffers: false } });
       } catch (error) {
         console.log(error)
         this.showMessage('Erro ao criar Solicitação de ajuda. Tente novamente mais tarde.');

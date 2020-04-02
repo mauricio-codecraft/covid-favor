@@ -19,7 +19,11 @@ export class FooterComponent implements OnInit {
     let nextRoute: string = localStorage.getItem('nextRoute');
     console.log('next route = ' + nextRoute);
     if (this.continueButton.disabled === false) {
-      this.router.navigate(['/' + nextRoute]);
+      if (nextRoute == 'dashboard') {
+        this.router.navigate(['/dashboard'], { queryParams: { showOffers: true } });
+      } else {
+        this.router.navigate(['/' + nextRoute]);
+      }
     }
   }
 }

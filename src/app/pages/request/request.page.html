@@ -2,7 +2,7 @@
 <ion-content class="ion-padding ios hydrated" style="--offset-top:0px; --offset-bottom:0px;">
   <ion-grid class="ios hydrated">
     <p class="page__title">Como você quer ser ajudado?</p>
-    <h5 class="page__description">Você pode estar precisando de um remédio da farmácia ou conheça alguém que precisa de um simples favor. Escreve o que quiser na descrição e se isso não for para você mas para algum conhecido, por favor deixe escrito o nome da pessoa e a forma de contato mais adequada</h5>
+    <h5 class="page__description">Você pode estar precisando de ajuda ou conheça alguém que precisa de um simples favor. Escreve o que quiser na descrição e se isso não for para você mas para algum conhecido, por favor deixe escrito o nome da pessoa e a forma de contato mais adequada</h5>
     <ion-row>
       <form [formGroup]="requestForm" (ngSubmit)="onSubmit()" novalidate="">
         <ion-col class="ion-no-padding ios hydrated" size="12">
@@ -10,7 +10,7 @@
             <mat-label>Como podemos ajudar?</mat-label>
             <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" tabindex="1" formControlName="description"
               matInput cdkAutosizeMinRows="5" cdkAutosizeMaxRows="50"
-              placeholder="Ex. Eu preciso que alguém faça as compras para a minha mãe..."></textarea>
+              placeholder="Ex. Eu preciso que alguém faça busque remedios para uma pessoa que está isolada..."></textarea>
           </mat-form-field>
         </ion-col>
       </form>
