@@ -64,11 +64,10 @@
       <ion-col *ngFor="let request of myRequests" class="selectableItem" (click)="selectItem($event)"
         class="delivery-cart" size="12">
         <img src="../../assets/help-request.svg">
-        <div><b>{{request.firstName}} {{request.lastName}} - {{request.city}} - {{request.neighbourhood}}</b>
+        <div><b>{{request.firstName}} {{request.lastName}} - {{request.city}} - {{request.neighbourhood}} - Contato: {{request.phoneNumber}}</b>
           <small>{{request.description}}</small>
-          <b *ngIf="request.status == 'assigned'">Será atendido por: {{request.asignee}} -
+          <b *ngIf="request.status == 'assigned'">Ajuda será feita por: {{request.asignee}} -
             {{request.asignee?.phoneNumber}}</b>
-          <b *ngIf="request.status != 'assigned'">Contato: {{request.phoneNumber}}</b>
         </div>
         <input type="hidden" class="helpId" name="helpId" [value]="request.helpId" />
         <input type="hidden" class="region" name="region" [value]="request.region" />
@@ -89,11 +88,10 @@
       <ion-col *ngFor="let request of otherRequests" class="selectableItem" (click)="selectItem($event)"
         class="delivery-cart" size="12">
         <img src="../../assets/help-request.svg">
-        <div><b>{{request.firstName}} {{request.lastName}} - {{request.city}} - {{request.neighbourhood}}</b>
+        <div><b>{{request.firstName}} {{request.lastName}} - {{request.city}} - {{request.neighbourhood}} - Contato: {{request.phoneNumber}}</b>
           <small>{{request.description}}</small>
-          <b *ngIf="request.status == 'assigned'">Será atendido por: {{request.asigneeFullName}} -
-            {{request.asigneePhoneNumber}}</b>
-          <b *ngIf="request.status != 'assigned'">Contato: {{request.phoneNumber}}</b>
+          <b *ngIf="request.status == 'assigned'">Ajuda será feita por: {{request.asignee}} -
+            {{request.asignee?.phoneNumber}}</b>
         </div>
         <input type="hidden" class="helpId" name="helpId" [value]="request.helpId" />
         <input type="hidden" class="userId" name="userId" [value]="request.userId" />
