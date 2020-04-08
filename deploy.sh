@@ -7,7 +7,7 @@
 
 # build the application
 echo "Starting covid-favor build..."
-ionic build
+ionic build --prod
 echo "covid-favor build completed"
 
 cd ./www

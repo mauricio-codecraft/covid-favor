@@ -1,3 +1,4 @@
+import { isDevMode } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
@@ -99,27 +100,29 @@ export class UserInfoPage implements OnInit {
       this.events.publish('loading:start');
       let phoneNumber: string = this.userInfoForm.value.phoneNumber;
       let password: string = this.userInfoForm.value.password;
-      try {
-        let response = await Auth.signUp({
-          username: '+55' + phoneNumber,
-          password: password
-        });
-        console.log('response = ', response);
-      } catch (err) {
-        if (err.code == 'UsernameExistsException') {
+      if (!isDevMode()) {
+        try {
+          let response = await Auth.signUp({
+            username: '+55' + phoneNumber,
+            password: password
+          });
+          console.log('response = ', response);
+        } catch (err) {
+          if (err.code == 'UsernameExistsException') {
+            this.events.publish('loading:stop');
+            this.userAlreadyExistError();
+          }
+        }
+        try {
+          let signinResp: string = await Auth.signIn('+55' + phoneNumber, password);
+          console.log('signinResp = ', signinResp);
+        } catch (err) {
           this.events.publish('loading:stop');
           this.userAlreadyExistError();
         }
+      } else {
+        localStorage.setItem('signedIn', 'true'); // For local development purposes
       }
-
-      try {
-        let signinResp: string = await Auth.signIn('+55' + phoneNumber, password);
-        console.log('signinResp = ', signinResp);
-      } catch (err) {
-        this.events.publish('loading:stop');
-          this.userAlreadyExistError();
-      }
-            
       let firstName: string = this.userInfoForm.value.firstName;
       let lastName: string = this.userInfoForm.value.lastName;
       let city: string = this.userInfoForm.value.city;
