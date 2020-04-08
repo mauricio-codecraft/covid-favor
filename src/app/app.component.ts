@@ -7,7 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {Events} from '@ionic/angular';
 
 import Amplify from 'aws-amplify';
-import { environment } from './../environments/environment';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',

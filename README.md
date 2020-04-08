@@ -14,12 +14,12 @@
 
 - Ionic v5.4.5 used for this application
 
-## Running
+## Running Locally
 
 1. `npm install`
 2. `ionic serve`
 
-This should run an appserver on http://localhost:8101/.
+This should run an appserver on http://localhost:8100/ with dev environment configuration.
 
 ## Deployment
 
