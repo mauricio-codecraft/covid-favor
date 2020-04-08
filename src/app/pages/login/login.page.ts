@@ -1,3 +1,4 @@
+import { isDevMode } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
@@ -57,21 +58,24 @@ export class LoginPage implements OnInit {
       this.events.publish('loading:start');
       let phoneNumber: string = this.loginForm.value.phoneNumber;
       let password: string = this.loginForm.value.password;
-      try {
-        await Auth.signIn('+55' + phoneNumber, password);
-      } catch (error) {
-        this.events.publish('loading:stop');
-        console.error(error);
-        if (error.code == 'NotAuthorizedException') {
-          this.errorSignIn('Numero de telefone ou senha incorretos. Verifique seus dados.');
-        } else {
-          this.errorSignIn('Erro ao entrar na conta. Favor tentar novamente mais tarde');
+      if (!isDevMode()) {
+        try {
+          await Auth.signIn('+55' + phoneNumber, password);
+        } catch (error) {
+          this.events.publish('loading:stop');
+          console.error(error);
+          if (error.code == 'NotAuthorizedException') {
+            this.errorSignIn('Numero de telefone ou senha incorretos. Verifique seus dados.');
+          } else {
+            this.errorSignIn('Erro ao entrar na conta. Favor tentar novamente mais tarde');
+          }
+          return;
         }
-        return;
+      } else {
+        localStorage.setItem('signedIn', 'true'); // For local development purposes
       }
       this.events.publish('loading:stop');
       this.router.navigate(['/actions']);
-      
     }
   }
 }
