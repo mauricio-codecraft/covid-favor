@@ -157,7 +157,6 @@ export class UserInfoPage implements OnInit {
         this.errorCreatingUser();
       }
       this.events.publish('loading:stop');
-      debugger;
       this.router.navigate(['/actions']);
     }
   }

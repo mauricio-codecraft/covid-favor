@@ -29,7 +29,6 @@ export class ActionsPage implements OnInit {
   }
 
   async loadUserAccount() {
-    debugger;
     try {
       let userAccount = await API.get("covid-favor", "/user-account", {});
       console.log('userAccount = ', userAccount);
@@ -67,7 +66,6 @@ export class ActionsPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    debugger;
     this.loadUserAccount();
   }
 
