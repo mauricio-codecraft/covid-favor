@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Events, AlertController } from '@ionic/angular';
 import { API } from 'aws-amplify';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-actions',
@@ -9,19 +10,16 @@ import { API } from 'aws-amplify';
 })
 export class ActionsPage implements OnInit {
 
-  constructor(private renderer: Renderer2, private events: Events, private alertController: AlertController) { }
+  constructor(private renderer: Renderer2, private events: Events, private alertController: AlertController, private router: Router) { }
 
-  @ViewChild('firstPackContainer', {static: false})
+  @ViewChild('firstPackContainer', { static: false })
   firstPackContainer: any;
 
-  @ViewChild('secondPackContainer', {static: false})
+  @ViewChild('secondPackContainer', { static: false })
   secondPackContainer: any;
 
-  @ViewChild('thirdPackContainer', {static: false})
+  @ViewChild('thirdPackContainer', { static: false })
   thirdPackContainer: any;
-
-  @ViewChild('footer', {static: false})
-  footer: any;
 
   firstName: string;
 
@@ -30,7 +28,11 @@ export class ActionsPage implements OnInit {
 
   async loadUserAccount() {
     try {
-      let userAccount = await API.get("covid-favor", "/user-account", {});
+      let userAccount = await API.get("covid-favor", "/user-account", {
+        headers: {
+          'cognito-identity-id': 'id' + localStorage.getItem('phoneNumber')
+        }
+      });
       console.log('userAccount = ', userAccount);
       localStorage.setItem('userId', userAccount.userId);
       localStorage.setItem('region', userAccount.region);
@@ -67,9 +69,6 @@ export class ActionsPage implements OnInit {
 
   ionViewWillEnter() {
     this.loadUserAccount();
-  }
-
-  ionViewDidEnter() {
     this.events.publish('loading:stop');
   }
 
@@ -82,7 +81,7 @@ export class ActionsPage implements OnInit {
     let nextRoute: string;
     if (selectedAction === this.firstPackContainer) {
       nextRoute = 'offer'
-    } 
+    }
     if (selectedAction === this.secondPackContainer) {
       nextRoute = 'request'
     }
@@ -91,7 +90,7 @@ export class ActionsPage implements OnInit {
     }
     console.log('nextRoute = ', nextRoute)
     localStorage.setItem('nextRoute', nextRoute);
-    this.enableContinue()
+    this.router.navigate(['/' + nextRoute]);
   }
 
   highlightAction(selectedPack: any) {
@@ -99,9 +98,5 @@ export class ActionsPage implements OnInit {
     this.secondPackContainer.el.classList.remove('active')
     this.thirdPackContainer.el.classList.remove('active')
     selectedPack.el.classList.add('active')
-  }
-
-  enableContinue() {
-    this.footer.continueButton.disabled = false
   }
 }

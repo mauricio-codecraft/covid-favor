@@ -73,6 +73,7 @@ export class LoginPage implements OnInit {
         }
       } else {
         localStorage.setItem('signedIn', 'true'); // For local development purposes
+        localStorage.setItem('phoneNumber', phoneNumber);
       }
       this.events.publish('loading:stop');
       this.router.navigate(['/actions']);

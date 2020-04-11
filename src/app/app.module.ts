@@ -23,14 +23,13 @@ import { OfferPage } from './pages/offer/offer.page';
 import { RequestPage } from './pages/request/request.page';
 // components
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { DashboardFooterComponent } from './components/dashboard-footer/dashboard-footer.component';
 import { LoaderComponent } from './components/loader/loader.component';
 // services
 // material
 import { MaterialModule } from './app.material.module';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+// import { ServiceWorkerModule } from '@angular/service-worker';
+// import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -43,7 +42,6 @@ import { environment } from '../environments/environment';
     OfferPage,
     RequestPage,
     HeaderComponent,
-    FooterComponent,
     DashboardFooterComponent,
     LoaderComponent
   ],

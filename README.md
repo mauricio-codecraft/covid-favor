@@ -1,6 +1,6 @@
 # 1SimplesFavor
 
-1SimplesFavor is an application to support people
+1SimplesFavor is a PWA application to support vulnerable people
 
 ## Disclaimer
 
@@ -14,6 +14,11 @@
 
 - Ionic v5.4.5 used for this application
 
+### Support
+
+- Open a [new issue](https://github.com/mauricio-codecraft/covid-favor/issues) if you've found a bug or have some suggestions.
+- Or submit a pull request!
+
 ## Running Locally
 
 1. `npm install`
@@ -22,8 +27,6 @@
 This should run an appserver on http://localhost:8100/ with dev environment configuration.
 
 ## Deployment
-
-- The front end application is hosted at: http://codecraft-onfido-poc.s3-website-us-east-1.amazonaws.com
 
 - To build and deploy the application to S3 run:
 1. `./deploy.sh`

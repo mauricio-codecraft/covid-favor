@@ -99,6 +99,7 @@ export class UserInfoPage implements OnInit {
     if (this.userInfoForm.valid) {
       this.events.publish('loading:start');
       let phoneNumber: string = this.userInfoForm.value.phoneNumber;
+      localStorage.setItem('phoneNumber', phoneNumber);
       let password: string = this.userInfoForm.value.password;
       if (!isDevMode()) {
         try {
@@ -140,7 +141,7 @@ export class UserInfoPage implements OnInit {
       });
       let neighbourhood: string = this.userInfoForm.value.neighbourhood;
       try {
-        await API.post("covid-favor", "/user-account", {
+        let params = {
           body: {
             firstName: firstName,
             lastName: lastName,
@@ -150,7 +151,13 @@ export class UserInfoPage implements OnInit {
             region: region,
             neighbourhood: neighbourhood
           }
-        });
+        };
+        if (isDevMode()) {
+          params['headers'] = {
+            'cognito-identity-id': 'id' + phoneNumber
+          }
+        }
+        await API.post("covid-favor", "/user-account", params);
       } catch (error) {
         console.error(error);
         this.events.publish('loading:stop');

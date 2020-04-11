@@ -29,7 +29,6 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      console.log('environment.aws = ', environment.aws)  // FIXME: remove
       let amplifyConfig = {
         Auth: {
           mandatorySignIn: true,
@@ -48,7 +47,6 @@ export class AppComponent {
           ]
         }
       };
-      console.log('amplifyConfig = ', amplifyConfig)  // FIXME: remove
       Amplify.configure(amplifyConfig);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
@@ -58,11 +56,9 @@ export class AppComponent {
 
   listenToLoadingEvents() {
     this.events.subscribe('loading:start', () => {
-      console.log("loading:start");
       this.loader.show = true
     });
     this.events.subscribe('loading:stop', () => {
-      console.log("loading:stop")
       this.loader.show = false
     });
   }

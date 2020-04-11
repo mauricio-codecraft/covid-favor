@@ -3,8 +3,7 @@ import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-dashboard-footer',
-  templateUrl: './dashboard-footer.component.html',
-  styleUrls: ['./dashboard-footer.component.scss'],
+  templateUrl: './dashboard-footer.component.html'
 })
 export class DashboardFooterComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, isDevMode } from '@angular/core';
 import { Events, AlertController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -38,7 +38,10 @@ export class OfferPage implements OnInit {
     this.offerForm = new FormGroup({
       description: new FormControl('', Validators.compose([
         Validators.required
-      ]))
+      ])),
+      range: new FormControl('', Validators.compose([
+        Validators.required
+      ])) 
     });
   }
 
@@ -61,8 +64,9 @@ export class OfferPage implements OnInit {
     if (this.offerForm.valid) {
       this.events.publish('loading:start');
       let description: string = this.offerForm.value.description;
+      let range: string = this.offerForm.value.range;
       try {
-        await API.post("covid-favor", "/help", {
+        let params = {
           body: {
             isOffer: true,
             city: localStorage.getItem('city'),
@@ -73,9 +77,16 @@ export class OfferPage implements OnInit {
             lastName: this.lastName,
             neighbourhood: this.neighbourhood,
             phoneNumber: this.phoneNumber,
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            range: range
           }
-        });
+        };
+        if (isDevMode()) {
+          params['headers'] = {
+            'cognito-identity-id': 'id' + localStorage.getItem('phoneNumber')
+          }
+        }
+        await API.post("covid-favor", "/help", params);
         this.showMessage('Oferta de ajuda criada com sucesso!');
         this.router.navigate(['/dashboard'], { queryParams: { showOffers: true } });
       } catch (error) {

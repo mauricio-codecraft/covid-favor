@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, isDevMode } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Events, AlertController } from '@ionic/angular';
 import { API } from 'aws-amplify';
@@ -79,14 +79,20 @@ export class DashboardPage implements OnInit {
 
   getOthersOffersAndRequests() {
     // Retrieve other customer offers
-    API.get("covid-favor", "/help", {
+    let params = {
       queryStringParameters: {
         onlyMyItems: false,
         region: localStorage.getItem('region'),
         state: localStorage.getItem('state'),
         isOffer: true
       }
-    }).then(helpItems => {
+    };
+    if (isDevMode()) {
+      params['headers'] = {
+        'cognito-identity-id': 'id' + localStorage.getItem('phoneNumber')
+      }
+    }
+    API.get("covid-favor", "/help", params).then(helpItems => {
       console.log('helpItems = ', helpItems);
       if (Array.isArray(helpItems) && helpItems.length) {
         helpItems.forEach(item => {
@@ -99,14 +105,20 @@ export class DashboardPage implements OnInit {
     });
 
     // Retrieve other customer requests
-    API.get("covid-favor", "/help", {
+    params = {
       queryStringParameters: {
         onlyMyItems: false,
         region: localStorage.getItem('region'),
         state: localStorage.getItem('state'),
         isOffer: false
       }
-    }).then(helpItems => {
+    };
+    if (isDevMode()) {
+      params['headers'] = {
+        'cognito-identity-id': 'id' + localStorage.getItem('phoneNumber')
+      }
+    }
+    API.get("covid-favor", "/help", params).then(helpItems => {
       console.log('helpItems = ', helpItems);
       if (Array.isArray(helpItems) && helpItems.length) {
         helpItems.forEach(item => {
@@ -121,12 +133,18 @@ export class DashboardPage implements OnInit {
 
   getMyOffersAndRequests() {
     // Retrieve customer offers and requests
-    API.get("covid-favor", "/help", {
+    let params = {
       queryStringParameters: {
         onlyMyItems: true,
         region: localStorage.getItem('region')
       }
-    }).then(helpItems => {
+    };
+    if (isDevMode()) {
+      params['headers'] = {
+        'cognito-identity-id': 'id' + localStorage.getItem('phoneNumber')
+      }
+    }
+    API.get("covid-favor", "/help", params).then(helpItems => {
       console.log('helpItems = ', helpItems);
       if (Array.isArray(helpItems) && helpItems.length) {
         helpItems.forEach(item => {
@@ -287,15 +305,21 @@ export class DashboardPage implements OnInit {
   acceptHelpItem() {
     console.log('acceptHelpItem');
     // accept customer request
-    API.post('covid-favor', '/help/accept', {
+    let params = {
       body: {
         region: this.selectedHelpRegion,
         selectedHelpUserId: this.selectedHelpUserId,
         createdAt: this.selectedHelpCreatedAt,
-        asigneeFullName: localStorage.getItem('firstName') + localStorage.getItem('lastName'),
+        asigneeFullName: localStorage.getItem('firstName') + ' ' + localStorage.getItem('lastName'),
         asigneePhoneNumber: localStorage.getItem('phoneNumber')
       }
-    }).then(result => {
+    };
+    if (isDevMode()) {
+      params['headers'] = {
+        'cognito-identity-id': 'id' + localStorage.getItem('phoneNumber')
+      }
+    }
+    API.post('covid-favor', '/help/accept', params).then(result => {
       // change request
       let request = this.otherRequests.filter(h => (h.helpId == this.selectedHelpId))[0];
       console.log('request before = ', request);
@@ -317,13 +341,20 @@ export class DashboardPage implements OnInit {
   deleteHelpItem() {
     console.log('deleteHelpItem');
     // delete customer offers and requests
-    API.del('covid-favor', '/help/', {
+    // accept customer request
+    let params = {
       queryStringParameters: {
         region: localStorage.getItem('region'),
         selectedHelpUserId: this.selectedHelpUserId,
         createdAt: this.selectedHelpCreatedAt
       }
-    }).then(result => {
+    };
+    if (isDevMode()) {
+      params['headers'] = {
+        'cognito-identity-id': 'id' + localStorage.getItem('phoneNumber')
+      }
+    }
+    API.del('covid-favor', '/help/', params).then(result => {
       // Remove deleted item from list
       this.myRequests = this.myRequests.filter(h => (h.helpId != this.selectedHelpId));
       this.myOffers = this.myOffers.filter(h => (h.helpId != this.selectedHelpId));

@@ -1,10 +1,12 @@
 <app-header progressRate=1.0></app-header>
 <ion-content class="ion-padding ios hydrated" style="--offset-top:0px; --offset-bottom:0px;">
-  <ion-grid class="ios hydrated">
-    <p class="page__title">Como você quer ser ajudado?</p>
-    <h5 class="page__description">Você pode estar precisando de ajuda ou conheça alguém que precisa de um simples favor. Escreva o que quiser na descrição e se isso não for para você mas para algum conhecido, por favor deixe escrito o nome da pessoa e a forma de contato mais adequada</h5>
-    <ion-row>
-      <form [formGroup]="requestForm" (ngSubmit)="onSubmit()" novalidate="">
+  <form [formGroup]="requestForm" (ngSubmit)="onSubmit()" novalidate="">
+    <ion-grid class="ios hydrated">
+      <p class="page__title">Como você quer ser ajudado?</p>
+      <h5 class="page__description">Você pode estar precisando de ajuda ou conheça alguém que precisa de um simples
+        favor. Escreva o que quiser na descrição e se isso não for para você mas para algum conhecido, por favor deixe
+        escrito o nome da pessoa e a forma de contato mais adequada</h5>
+      <ion-row>
         <ion-col class="ion-no-padding ios hydrated" size="12">
           <mat-form-field appearance="outline" color="warn" [style.width.px]=327>
             <mat-label>Como podemos ajudar?</mat-label>
@@ -13,21 +15,40 @@
               placeholder="Ex. Eu preciso que alguém faça busque remedios para uma pessoa que está isolada..."></textarea>
           </mat-form-field>
         </ion-col>
-      </form>
-    </ion-row>
-    <ion-row class="form-container ios hydrated">
-      <div class="page__label">Nome: {{firstName}} {{lastName}}</div>
-    </ion-row>
-    <ion-row class="form-container ios hydrated">
-      <div class="page__label">Celular: {{phoneNumber}}</div>
-    </ion-row>
-    <ion-row class="form-container ios hydrated">
-      <div class="page__label">Cidade: {{cityFullName}}</div>
-    </ion-row>
-    <ion-row class="form-container ios hydrated">
-      <div class="page__label">Bairro: {{neighbourhood}}</div>
-    </ion-row>
-  </ion-grid>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item style="padding-bottom:21px; margin-top:4px; margin-bottom:4px">
+            <ion-label>Abrangência</ion-label>
+            <ion-select tabindex="5" formControlName="range" class="form-contrl" name="range" required=""
+              role="combobox" aria-haspopup="dialog" aria-expanded="false" aria-labelledby="ion-sel-0-lbl">
+              <ion-select-option role="option">Nacional</ion-select-option>
+              <ion-select-option role="option">Regional</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="form-container ios hydrated">
+        <div *ngIf="requestForm.value.range == 'Nacional'" class="page__label">Esse pedido ficará disponível para
+          usuários do
+          país inteiro! Mantenha essa abrangência somente se alguém longe de você puder te atender.</div>
+        <div *ngIf="requestForm.value.range == 'Regional'" class="page__label">Oferta ficará visível para usuários de
+          sua região, apenas!</div>
+      </ion-row>
+      <ion-row class="form-container ios hydrated">
+        <div class="page__label">Nome: {{firstName}} {{lastName}}</div>
+      </ion-row>
+      <ion-row class="form-container ios hydrated">
+        <div class="page__label">Celular: {{phoneNumber}}</div>
+      </ion-row>
+      <ion-row class="form-container ios hydrated">
+        <div class="page__label">Cidade: {{cityFullName}}</div>
+      </ion-row>
+      <ion-row class="form-container ios hydrated">
+        <div class="page__label">Bairro: {{neighbourhood}}</div>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
 <ion-footer role="contentinfo" class="ios footer-ios hydrated">
   <ion-toolbar class="in-toolbar ios hydrated">
